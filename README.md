@@ -18,8 +18,8 @@
 
 | Name                   | Position                                   | GitHub Profile |
 |------------------------|--------------------------------------------|----------------|
-| นายปฏิญญา โม้มวน       |                                             |             |
-| นายอรรถพล หงไธสงค์     |                                             |[@Koko-atp](https://github.com/Koko-atp)|
-| นางสาวศรุตา กวินกุลชาติ    |                                            |
-| นายอธิคุณ ศรีสวนแตง      |                                            |
-| นายปาณะพงษ์ ช้างกลาง      |                                          |
+| นายปฏิญญา โม้มวน       |                                             | [Poobpub](https://github.com/Poobpub) |
+| นายอรรถพล หงไธสงค์     |                                             | [Koko-atp](https://github.com/Koko-atp) |
+| นางสาวศรุตา กวินกุลชาติ    |                                            |  |
+| นายอธิคุณ ศรีสวนแตง      |                                            | [Sparkyxzp](https://github.com/Sparkyxzp) |
+| นายปาณะพงษ์ ช้างกลาง      |                                          | [Futsu-coder](https://github.com/Futsu-coder) |
