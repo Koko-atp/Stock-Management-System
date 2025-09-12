@@ -1,68 +1,211 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* เพิ่มโค้ดนี้ลงไปในท้ายไฟล์ src/index.css */
+body{
+  background-color: #333;
+}
+.pos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ddd;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
+.main-content {
+  background-color: #00ef70;
+  padding: 30px;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+h1, h2, h3 {
+  color: #fff;
+}
+
+.product-list-container {
+  overflow-x: auto;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.product-table th, .product-table td {
+  border: 1px solid #555;
+  padding: 12px;
+  text-align: center;
+  color: #fff;
+  background-color: #c70000
+}
+
+.product-table th {
+  background-color: #555;
+  font-weight: bold;
+}
+
+.product-table tr:nth-child(even) {
+  background-color: #3d3d3d;
+}
+
+.product-table tr:hover {
+  background-color: #5a5a5a;
+}
+
+.loading, .error {
+  text-align: center;
+  font-size: 1.2em;
+  padding: 50px;
+  color: #fff;
+}
+
+.error {
+  color: #ff4d4f;
+}
+
+/* เพิ่มส่วนนี้สำหรับ Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* พื้นหลังทึบแสง */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+}
+.modal-content h3{
+  color: #000;
+}
+
+.modal-input-group {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.modal-input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.modal-input-group input {
+  width: 100px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.btn_plus_minus{
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 3px;
+}
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-save {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #f44336;
+  color: white;
+}
+
+/* เพิ่มในส่วน modal-input-group */
+.modal-input-group {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex; /* ทำให้องค์ประกอบเรียงในแนวนอน */
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* เพิ่มระยะห่างระหว่าง dropdown กับ input */
+}
+
+.modal-input-group select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-input-group input {
+  width: 100px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1rem;
+}
+/* สำหรับปุ่มแก้ไข */
+.btn-edit {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 3px;
+}
+
+
+
+/* สำหรับกลุ่มฟอร์มใน Modal */
+.modal-form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.modal-form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.modal-form-group input {
+  width: 95%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.modal-form-group select{
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
