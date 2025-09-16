@@ -9,7 +9,7 @@
 
 - **Frontend:** HTML, CSS, Tailwind CSS, JavaScript, React.js 
 - **Backend:** Node.js
-- **ฐานข้อมูล:** MySQL  
+- **ฐานข้อมูล:** SupaBase  
 
 ---
 
