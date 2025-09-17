@@ -8,8 +8,11 @@ import AddProductModal from './addproduct';
 
 
 function App() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); // State สำหรับเก็บข้อมูลสินค้า
   const [categories, setCategories] = useState([]); // State สำหรับเก็บข้อมูลหมวดหมู่
+  const [searchTerm, setSearchTerm] = useState(''); // State สำหรับเก็บข้อมูลแถบค้นหา
+  const [filteredProducts, setFilteredProducts] = useState([]); // State สำหรับเก็บข้อมูลสินค้าที่ถูกกรอง
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,6 +59,16 @@ function App() {
     
     fetchCategories();
   }, []); 
+  
+  useEffect(() => {
+    const results = products.filter(product =>
+      product.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.productname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      getCategoryName(product.categoryid).toLowerCase().includes(searchTerm.toLowerCase())||
+      String(product.price).includes(searchTerm)
+    );
+    setFilteredProducts(results);
+  }, [products, searchTerm, categories]);
 
   const getCategoryName = (categoryid) => {
   const category = categories.find(cat => cat.categoryid === categoryid);
@@ -209,6 +222,13 @@ const handleDeleteProduct = async (productId) => {
         <h2>รายการสินค้า</h2>
         <div className="product-actions">
           <button className="btn btn-save-add" onClick={openAddModal}>เพิ่มสินค้าใหม่</button>
+          <input
+            type="text"
+            placeholder="ค้นหาสินค้า (SKU, ชื่อ, ราคา, หมวดหมู่)"
+            className="search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
         <div className="product-list-container">
           <table className="product-table">
@@ -226,7 +246,7 @@ const handleDeleteProduct = async (productId) => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <tr key={product.productid}
                     className={product.initialquantity < product.minimumcriteria ? 'low-stock' : ''}>
                   <td>{product.productid}</td>
