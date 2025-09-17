@@ -176,7 +176,7 @@ const handleDeleteProduct = async (productId) => {
       
       if (error) throw error;
 
-      await DB.rpc('reset_product');
+      await DB.rpc('reset_productid');
 
       await fetchProducts(); // ดึงข้อมูลใหม่เพื่อแสดงรายการที่อัปเดต
       console.log('ลบสินค้าสำเร็จ!');
