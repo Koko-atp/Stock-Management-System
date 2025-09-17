@@ -1,4 +1,3 @@
-/* เพิ่มโค้ดนี้ลงไปในท้ายไฟล์ src/index.css */
 body{
   background-color: #333;
 }
@@ -44,14 +43,16 @@ h1, h2, h3 {
   padding: 12px;
   text-align: center;
   color: #fff;
-  background-color: #c70000;
 
 }
 
 .product-table th {
   background-color: #555;
   font-weight: bold;
+}
 
+.product-table tr:nth-child(odd) {
+  background-color: #2918deb7;
 }
 
 .product-table tr:nth-child(even) {
@@ -60,6 +61,10 @@ h1, h2, h3 {
 
 .product-table tr:hover {
   background-color: #5a5a5a;
+}
+
+.product-table .low-stock td {
+  background-color: #ff0000 !important;
 }
 
 .loading, .error {
@@ -73,14 +78,13 @@ h1, h2, h3 {
   color: #ff4d4f;
 }
 
-/* เพิ่มส่วนนี้สำหรับ Modal */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* พื้นหลังทึบแสง */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -144,8 +148,8 @@ h1, h2, h3 {
 }
 .more_items_button{
   display: flex;
-  flex-direction: row; /* จัดเรียงปุ่มในแนวตั้ง */
-  gap: 5px; /* เพิ่มระยะห่าง 5px ระหว่างปุ่ม */
+  flex-direction: row; 
+  gap: 5px;
   align-items: center;
 }
 
@@ -159,14 +163,13 @@ h1, h2, h3 {
   color: white;
 }
 
-/* เพิ่มในส่วน modal-input-group */
 .modal-input-group {
   margin-top: 1.5rem;
   margin-bottom: 2rem;
-  display: flex; /* ทำให้องค์ประกอบเรียงในแนวนอน */
+  display: flex; 
   justify-content: center;
   align-items: center;
-  gap: 1rem; /* เพิ่มระยะห่างระหว่าง dropdown กับ input */
+  gap: 1rem;
 }
 
 .modal-input-group select {

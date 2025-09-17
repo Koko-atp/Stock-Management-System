@@ -4,13 +4,12 @@ import { useState, useEffect } from 'react';
 import DB from './DB';
 import Modal from './Modal';
 import EditProductModal from './editproduct';
-import AddProductModal from './addproduct'; // เพิ่มบรรทัดนี้
+import AddProductModal from './addproduct';
 
 
 function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]); // State สำหรับเก็บข้อมูลหมวดหมู่
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,7 +44,7 @@ function App() {
         const { data, error } = await DB
           .from('category')
           .select('*')
-          .order('categoryid', { ascending: true }); // หรือจะเรียงตามชื่อก็ได้
+          .order('categoryid', { ascending: true });
 
         if (error) throw error;
         
@@ -57,32 +56,32 @@ function App() {
     
     fetchCategories();
   }, []); 
+
   const getCategoryName = (categoryid) => {
   const category = categories.find(cat => cat.categoryid === categoryid);
   return category ? category.categoryname : 'ไม่พบหมวดหมู่';
   };
   
 
-  // สร้างฟังก์ชันสำหรับเปิด Modal
+  // ฟังก์ชันสำหรับเปิด Modal อัปเดตจำนวนสินค้า
   const handleUpdateQuantity = (product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
   };
   
-  // สร้างฟังก์ชันสำหรับปิด Modal 
+  // ฟังก์ชันสำหรับปิด Modal อัปเดตจำนวนสินค้า
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedProduct(null);
   };
   
 
-   // สร้างฟังก์ชันเพื่อจัดการการบันทึกจำนวนสินค้า
+   //ฟังก์ชันเพื่อจัดการการบันทึกจำนวนสินค้า
   const handleSaveQuantity = async (productId, quantity) => {
   try {
     const productToUpdate = products.find(p => p.productid === productId);
     if (!productToUpdate) throw new Error("ไม่พบสินค้า");
 
-    // คำนวณจำนวนใหม่
     // หาก quantity เป็นบวกจะเพิ่ม หากเป็นลบจะลด
     const newQuantity = productToUpdate.initialquantity + quantity;
 
@@ -126,7 +125,7 @@ function App() {
       
       if (error) throw error;
 
-      // เรียกฟังก์ชันเพื่อดึงข้อมูลสินค้าทั้งหมดมาอัปเดต state ใหม่
+      //ฟังก์ชันเพื่อดึงข้อมูลสินค้าทั้งหมดมาอัปเดต state ใหม่
       await fetchProducts();
       
       console.log('อัปเดตข้อมูลสินค้าสำเร็จ!');
@@ -137,7 +136,7 @@ function App() {
     }
   };
 
-    // สร้างฟังก์ชันสำหรับเปิด/ปิด Modal เพิ่มสินค้า
+    //ฟังก์ชันสำหรับเปิด/ปิด Modal เพิ่มสินค้า
   const openAddModal = () => {
     setIsAddModalOpen(true);
   };
@@ -146,15 +145,21 @@ function App() {
     setIsAddModalOpen(false);
   };
 
-  // สร้างฟังก์ชันสำหรับบันทึกสินค้าใหม่
+// ฟังก์ชันสำหรับบันทึกสินค้าใหม่
 
 const handleAddSave = async (newProductData) => {
-    try {
-      
+    
+  try {
+      const dataToInsert = {
+        ...newProductData,
+        createddate: new Date().toISOString().split('T')[0],
+        initialquantity: parseInt(newProductData.initialquantity) || 0,
+      };
       // ใช้คำสั่ง insert โดยตรง
       const { error } = await DB
         .from('product')
-        .insert(newProductData);
+        .insert(dataToInsert);
+        
         
       
       if (error) throw error;
@@ -166,6 +171,9 @@ const handleAddSave = async (newProductData) => {
       console.error('Error adding new product:', e);
     }
   };
+
+  // ฟังก์ชันสำหรับลบสินค้า
+
 const handleDeleteProduct = async (productId) => {
   if (window.confirm("คุณแน่ใจหรือไม่ว่าต้องการลบสินค้ารายการนี้?")) {
     try {
@@ -219,7 +227,8 @@ const handleDeleteProduct = async (productId) => {
             </thead>
             <tbody>
               {products.map((product) => (
-                <tr key={product.productid}>
+                <tr key={product.productid}
+                    className={product.initialquantity < product.minimumcriteria ? 'low-stock' : ''}>
                   <td>{product.productid}</td>
                   <td>{product.sku}</td>
                   <td>{product.productname}</td>
@@ -256,7 +265,7 @@ const handleDeleteProduct = async (productId) => {
       <EditProductModal
         isVisible={isEditModalOpen}
         product={productToEdit}
-        categories={categories} // เพิ่มบรรทัดนี้
+        categories={categories}
         onClose={closeEditModal}
         onSave={handleEditSave}
       />
