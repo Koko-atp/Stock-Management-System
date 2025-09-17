@@ -3,7 +3,7 @@ body{
   background-color: #333;
 }
 .pos-container {
-  max-width: 1200px;
+
   margin: 0 auto;
   padding: 20px;
 }
@@ -28,12 +28,15 @@ h1, h2, h3 {
 
 .product-list-container {
   overflow-x: auto;
+  width: auto;
 }
 
 .product-table {
-  width: 100%;
+  width: auto;
   border-collapse: collapse;
   margin-top: 20px;
+  white-space: nowrap;
+  min-width: 100px;
 }
 
 .product-table th, .product-table td {
@@ -41,12 +44,14 @@ h1, h2, h3 {
   padding: 12px;
   text-align: center;
   color: #fff;
-  background-color: #c70000
+  background-color: #c70000;
+
 }
 
 .product-table th {
   background-color: #555;
   font-weight: bold;
+
 }
 
 .product-table tr:nth-child(even) {
@@ -137,6 +142,12 @@ h1, h2, h3 {
   cursor: pointer;
   font-size: 1rem;
 }
+.more_items_button{
+  display: flex;
+  flex-direction: row; /* จัดเรียงปุ่มในแนวตั้ง */
+  gap: 5px; /* เพิ่มระยะห่าง 5px ระหว่างปุ่ม */
+  align-items: center;
+}
 
 .btn-save {
   background-color: #4CAF50;
@@ -208,4 +219,23 @@ h1, h2, h3 {
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+/* เพิ่มในส่วนสุดท้ายของไฟล์ */
+.product-actions {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.btn-add {
+  background-color: #e80e0e;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.btn-save-add{
+  background-color: #c70000;
+  
 }

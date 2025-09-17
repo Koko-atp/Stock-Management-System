@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import DB from './DB';
 import Modal from './Modal';
 import EditProductModal from './editproduct';
+import AddProductModal from './addproduct'; // เพิ่มบรรทัดนี้
+
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -15,6 +17,8 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false); 
+
 
   const fetchProducts = async () => {
     try {
@@ -133,6 +137,57 @@ function App() {
     }
   };
 
+    // สร้างฟังก์ชันสำหรับเปิด/ปิด Modal เพิ่มสินค้า
+  const openAddModal = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const closeAddModal = () => {
+    setIsAddModalOpen(false);
+  };
+
+  // สร้างฟังก์ชันสำหรับบันทึกสินค้าใหม่
+
+const handleAddSave = async (newProductData) => {
+    try {
+      
+      // ใช้คำสั่ง insert โดยตรง
+      const { error } = await DB
+        .from('product')
+        .insert(newProductData);
+        
+      
+      if (error) throw error;
+
+      await fetchProducts(); // ดึงข้อมูลใหม่เพื่อแสดงสินค้าที่เพิ่งเพิ่ม
+      console.log('เพิ่มสินค้าใหม่สำเร็จ!');
+    } catch (e) {
+      setError('ไม่สามารถเพิ่มสินค้าใหม่ได้: ' + e.message);
+      console.error('Error adding new product:', e);
+    }
+  };
+const handleDeleteProduct = async (productId) => {
+  if (window.confirm("คุณแน่ใจหรือไม่ว่าต้องการลบสินค้ารายการนี้?")) {
+    try {
+      const { error } = await DB
+        .from('product')
+        .delete()
+        .eq('productid', productId);
+      
+      if (error) throw error;
+
+      await DB.rpc('reset_product');
+
+      await fetchProducts(); // ดึงข้อมูลใหม่เพื่อแสดงรายการที่อัปเดต
+      console.log('ลบสินค้าสำเร็จ!');
+
+    } catch (e) {
+      setError('ไม่สามารถลบสินค้าได้: ' + e.message);
+      console.error('Error deleting product:', e);
+    }
+  }
+};
+
   if (loading) return <div className="loading">กำลังโหลดข้อมูล...</div>;
   if (error) return <div className="error">{error}</div>;
 
@@ -144,6 +199,9 @@ function App() {
       </header>
       <main className="main-content">
         <h2>รายการสินค้า</h2>
+        <div className="product-actions">
+          <button className="btn btn-save-add" onClick={openAddModal}>เพิ่มสินค้าใหม่</button>
+        </div>
         <div className="product-list-container">
           <table className="product-table">
             <thead>
@@ -169,12 +227,19 @@ function App() {
                   <td>{product.price} บาท</td>
                   <td>{product.initialquantity} ชิ้น</td>
                   <td>{product.minimumcriteria} ชิ้น</td>
-                  <td><button className = "btn_plus_minus" onClick={() => handleUpdateQuantity(product)}>
+                  <td>
+                  <div className='more_items_button'>
+                  <button className = "btn_plus_minus" onClick={() => handleUpdateQuantity(product)}>
                       เพิ่มลดจำนวนสินค้า
                   </button>
                   <button className="btn-edit" onClick={() => openEditModal(product)}>
                       แก้ไขข้อมูลสินค้า
-                  </button></td>
+                  </button>
+                  <button className = "btn_plus_minus" onClick={() => handleDeleteProduct(product.productid)}>
+                      ลบสินค้า
+                  </button>
+                  </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -194,6 +259,12 @@ function App() {
         categories={categories} // เพิ่มบรรทัดนี้
         onClose={closeEditModal}
         onSave={handleEditSave}
+      />
+      <AddProductModal
+        isVisible={isAddModalOpen}
+        categories={categories}
+        onClose={closeAddModal}
+        onSave={handleAddSave}
       />
     </div>
   );

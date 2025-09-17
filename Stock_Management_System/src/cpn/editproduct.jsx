@@ -8,17 +8,19 @@ const EditProductModal = ({ isVisible, product, onClose, onSave, categories }) =
     price: 0,
     sku: '',
     categoryid: null, // เปลี่ยนจาก categoryname เป็น categoryid
+    minimumcriteria:'',
   });
 
   // ใช้ useEffect เพื่ออัปเดตค่าฟอร์มเมื่อ prop 'product' เปลี่ยน
   useEffect(() => {
     if (product) {
-      setFormData({
+      setFormData({        // เพิ่มค่าเริ่มต้นของ field ใหม่
+
         productname: product.productname,
         price: product.price,
-        // เพิ่มค่าเริ่มต้นของ field ใหม่
         sku: product.sku,
         categoryid: product.categoryid, // กำหนดค่าเริ่มต้นเป็น categoryid ของสินค้า
+        minimumcriteria:product.minimumcriteria,
 
       });
     }
@@ -90,6 +92,16 @@ const EditProductModal = ({ isVisible, product, onClose, onSave, categories }) =
                 </option>
               ))}
             </select>
+          </div>
+          <div className="modal-form-group">
+            <label>เกณฑ์ขั้นต่ำ:</label>
+            <input
+              type="number"
+              name="minimumcriteria"
+              value={formData.minimumcriteria}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="modal-actions">
             <button type="submit" className="btn btn-save">บันทึกการแก้ไข</button>
