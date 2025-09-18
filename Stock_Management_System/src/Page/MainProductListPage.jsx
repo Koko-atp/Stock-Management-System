@@ -1,13 +1,11 @@
-// src/App.jsx
-
 import { useState, useEffect } from 'react';
-import DB from './DB';
-import Modal from './Modal';
-import EditProductModal from './editproduct';
-import AddProductModal from './addproduct';
+import DB from '../assets/DB'
+import Modal from '../cpn/Modal';
+import EditProductModal from '../cpn/editproduct';
+import AddProductModal from '../cpn/addproduct';
+import '../Page/MPLP.css'
 
-
-function App() {
+function MPL(){
   const [products, setProducts] = useState([]); // State สำหรับเก็บข้อมูลสินค้า
   const [categories, setCategories] = useState([]); // State สำหรับเก็บข้อมูลหมวดหมู่
   const [searchTerm, setSearchTerm] = useState(''); // State สำหรับเก็บข้อมูลแถบค้นหา
@@ -58,7 +56,8 @@ function App() {
     };
     
     fetchCategories();
-  }, []); 
+  }, [categories]); 
+  
   
   useEffect(() => {
     const results = products.filter(product =>
@@ -69,11 +68,11 @@ function App() {
     );
     setFilteredProducts(results);
   }, [products, searchTerm, categories]);
-
+  
   const getCategoryName = (categoryid) => {
   const category = categories.find(cat => cat.categoryid === categoryid);
   return category ? category.categoryname : 'ไม่พบหมวดหมู่';
-  };
+};
   
 
   // ฟังก์ชันสำหรับเปิด Modal อัปเดตจำนวนสินค้า
@@ -298,5 +297,5 @@ const handleDeleteProduct = async (productId) => {
     </div>
   );
 }
-export default App;
 
+export default MPL ;
