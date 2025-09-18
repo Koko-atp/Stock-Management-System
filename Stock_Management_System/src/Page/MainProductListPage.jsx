@@ -274,7 +274,6 @@ const handleDeleteProduct = async (productId) => {
           </table>
         </div>
       </main>
-      {}
       <Modal
         isVisible={isModalOpen}
         product={selectedProduct}

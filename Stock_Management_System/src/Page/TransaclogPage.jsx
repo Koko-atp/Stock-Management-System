@@ -1,0 +1,56 @@
+import { useEffect, useState } from "react";
+import DB from "../assets/DB";
+import './transac.css';
+
+function ProductLog({popupstate}) {
+    const[LogData , setLogData] = useState([]);
+
+
+    ////////////    Load Log    ////////////
+    const fetchLog = async () => {
+       try{
+           const{data ,error} = await DB.from('stocktransaction')
+           .select('quantity , note , transactiondate ,  transactionid   , transactiontype( transactiontypeid , typename )')
+           .order('transactiondate' , {ascending: false})
+           .limit(10);
+           setLogData(data);
+           if (error) throw error;
+        } 
+        catch(e){
+            console.error("Can't Load History Log" , e);
+        }
+    };
+
+    /////  load when change  /////
+    useEffect(() =>{
+             if (popupstate) {
+                fetchLog();}
+    } , [popupstate]);
+
+    if(!popupstate) return null;
+    return(
+        <div>
+            <table className="TLog-Table">
+                <thead>
+                    <tr>
+                    <th>วันที่ฝเวลา</th>
+                    <th>จำนวน</th>
+                    <th>ประเภท</th>
+                    <th>หมายเหตู</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {LogData.map((pLog ) => (
+                    <tr key= {pLog.transactionid}>
+                        <td>{pLog.transactiondate}</td>
+                        <td>{pLog.quantity}</td>
+                        <td>{pLog.transactiontype.typename}</td>
+                        <td>{pLog.note || '-'}</td>
+                    </tr> 
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+export default ProductLog; 
