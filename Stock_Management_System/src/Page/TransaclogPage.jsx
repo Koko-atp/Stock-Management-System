@@ -33,7 +33,7 @@ function ProductLog({popupstate}) {
             <table className="TLog-Table">
                 <thead>
                     <tr>
-                    <th>วันที่ฝเวลา</th>
+                    <th>วันที่เวลา</th>
                     <th>จำนวน</th>
                     <th>ประเภท</th>
                     <th>หมายเหตู</th>
