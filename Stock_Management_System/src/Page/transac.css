@@ -1,0 +1,71 @@
+.productlog_Popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.LogContent{
+    position: relative;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.TLog-Table{
+    border: 1px solid rgb(126, 121, 121);
+    border-radius: 8px;
+}
+
+.TLog-Table table {
+    padding: 10px;
+    justify-content: left;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.TLog-Table thead th {
+    padding: 5px;
+    border-bottom: 1px  solid rgb(126, 121, 121);
+    text-align: center;
+}
+
+.TableTitle {
+    font-size: 1.5rem;
+    padding: 20px;
+}
+
+.TLog-Table tbody td{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px ;
+    text-align:center;
+}
+.closebutton {
+    position: absolute;
+    top: 10px ;
+    right:10px;
+    border: none;
+    width: 10%;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+}
+
+.closebutton:hover {
+  background-color: red;
+  color: white; /
+}
+

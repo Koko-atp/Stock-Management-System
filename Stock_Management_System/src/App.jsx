@@ -6,7 +6,7 @@ function App() {
  return(
 <div className="App">  
   <MPL/>
-  {/* <ProductLog popupstate={true}/>    ยังไม่เสร็จ    */} 
+  {/* <ProductLog popupstate={true}/> */}
   <Mfooter/>
 </div>
  ); 

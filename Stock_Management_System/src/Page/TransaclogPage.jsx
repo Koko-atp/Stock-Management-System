@@ -29,8 +29,15 @@ function ProductLog({popupstate}) {
 
     if(!popupstate) return null;
     return(
-        <div>
-            <table className="TLog-Table">
+        <div className="productlog_Popup">
+        <div className="LogContent">
+            <button className="closebutton" >
+                -
+            </button>
+            <div className="TableTitle">ประวัติการทำรายการ</div>
+            <div className="TLog-Table">
+            <table >
+
                 <thead>
                     <tr>
                     <th>วันที่เวลา</th>
@@ -39,9 +46,10 @@ function ProductLog({popupstate}) {
                     <th>หมายเหตู</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {LogData.map((pLog ) => (
-                    <tr key= {pLog.transactionid}>
+                        <tr key= {pLog.transactionid}>
                         <td>{pLog.transactiondate}</td>
                         <td>{pLog.quantity}</td>
                         <td>{pLog.transactiontype.typename}</td>
@@ -49,7 +57,11 @@ function ProductLog({popupstate}) {
                     </tr> 
                     ))}
                 </tbody>
+
             </table>
+
+            </div>
+            </div>
         </div>
     );
 }
