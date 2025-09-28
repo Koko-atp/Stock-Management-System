@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Footer Navigation</title>
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <!-- Content -->
+  <div class="flex-1"></div>
+
+  <!-- Footer -->
+  <footer class="fixed bottom-0 left-0 w-full bg-white border-t shadow-md rounded-t-2xl">
+    <div class="flex justify-around items-center py-3">
+
+      <!-- คลังสินค้า -->
+      <div class="flex flex-col items-center text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2h-4V2H10v2H6a2 2 0 00-2 2v7m16 0v7a2 2 0 01-2 2H6a2 2 0 01-2-2v-7h16z" />
+        </svg>
+        <span class="text-xs">คลังสินค้า</span>
+      </div>
+
+      <!-- ประวัติรวม -->
+      <div class="flex flex-col items-center text-gray-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2h6v2m-6 4v-2h6v2M5 7V5a2 2 0 012-2h10a2 2 0 012 2v2M5 7h14v10a2 2 0 01-2 2H7a2 2 0 01-2-2V7z" />
+        </svg>
+        <span class="text-xs">ประวัติรวม</span>
+      </div>
+
+      <!-- การแจ้งเตือน -->
+      <div class="flex flex-col items-center text-gray-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405C18.79 14.79 18 13.42 18 12V8a6 6 0 00-9.33-5" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17H4l1.405-1.405C6.21 14.79 7 13.42 7 12V8c0-.93.28-1.8.77-2.52" />
+        </svg>
+        <span class="text-xs">การแจ้งเตือน</span>
+      </div>
+
+      <!-- การตั้งค่า -->
+      <div class="flex flex-col items-center text-gray-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15l-3-3h6l-3 3z" />
+        </svg>
+        <span class="text-xs">การตั้งค่า</span>
+      </div>
+
+      <!-- โปรไฟล์ -->
+      <div class="flex flex-col items-center text-gray-500">
+        <img src="https://via.placeholder.com/30" class="rounded-full mb-1 w-7 h-7" alt="Profile">
+        <span class="text-xs">โปรไฟล์</span>
+      </div>
+
+    </div>
+  </footer>
+</body>
+</html>
