@@ -1,0 +1,34 @@
+.p-footer-menu {
+  display: flex; /* ใช้ Flexbox เพื่อจัดเรียงไอเท็มในแนวนอน */
+  justify-content: space-around; /* กระจายช่องว่างระหว่างแต่ละเมนูให้เท่ากัน */
+  align-items: center; /* จัดตำแหน่งไอคอนและข้อความให้อยู่ตรงกลางตามแนวตั้ง */
+  width: 100%; /* กำหนดความกว้างเต็มหน้าจอ */
+  padding: 10px 0; /* เพิ่มช่องว่างด้านบนและล่าง */
+  background-color: #fff; /* สีพื้นหลังของเมนู */
+  border-top: 1px solid #e0e0e0; /* เส้นขอบด้านบน */
+  position: fixed; /* ทำให้เมนูอยู่กับที่ด้านล่างจอ */
+  bottom: 0; /* ชิดขอบด้านล่าง */
+  left: 0;
+  z-index: 1000; /* ทำให้เมนูอยู่เหนือองค์ประกอบอื่น ๆ */
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column; /* จัดเรียงไอคอนและข้อความให้อยู่ในแนวตั้ง */
+  align-items: center;
+  text-decoration: none; /* ลบขีดเส้นใต้ของลิงก์ */
+  color: #888; /* สีเริ่มต้นของข้อความ */
+  font-size: 12px;
+  transition: color 0.3s; /* เพิ่ม Transition เพื่อการเปลี่ยนสีที่นุ่มนวลขึ้น */
+}
+
+.menu-item img {
+  width: 24px; /* กำหนดขนาดของไอคอน */
+  height: 24px;
+  margin-bottom: 4px; /* เพิ่มช่องว่างระหว่างไอคอนกับข้อความ */
+}
+
+/* สไตล์สำหรับเมนูที่ถูกเลือก */
+.menu-item.active {
+  color: #000; /* สีของข้อความเมื่อถูกเลือก */
+}

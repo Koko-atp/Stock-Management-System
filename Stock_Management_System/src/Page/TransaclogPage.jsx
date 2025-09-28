@@ -21,7 +21,7 @@ function ProductLog({popupstate}) {
         }
     };
 
-    /////  load when change  /////
+    /////  load when change  ////
     useEffect(() =>{
              if (popupstate) {
                 fetchLog();}
