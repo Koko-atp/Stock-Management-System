@@ -21,5 +21,5 @@
 | นายปฏิญญา โม้มวน       |                                             | [![Static Badge](https://img.shields.io/badge/Poopub-black)](https://github.com/Poobpub) |
 | นายอรรถพล หงไธสงค์     |                                             | [![Static Badge](https://img.shields.io/badge/Koko--atp%20-black)](https://github.com/Koko-atp) |
 | นางสาวศรุตา กวินกุลชาติ    |                                            |  [![Static Badge](https://img.shields.io/badge/saruta67026483-black)](https://github.com/saruta67026483) |
-| นายอธิคุณ ศรีสวนแตง      |                                            | [![Static Badge](https://img.shields.io/badge/Sparkyxzp-black)](https://github.com/Sparkyxzp) |
+| นายอธิคุณ ศรีสวนแตง      |                                            | [![Static Badge](https://img.shields.io/badge/AtitkunSrisantang-black)](https://github.com/AtitkunSrisantang) |
 | นายปาณะพงษ์ ช้างกลาง      |                                          | [![Static Badge](https://img.shields.io/badge/Futsu--coder%20-black)](https://github.com/Futsu-coder) |
