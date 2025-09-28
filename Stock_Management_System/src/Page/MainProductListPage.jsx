@@ -99,19 +99,22 @@ function MPL(){
     // หาก quantity เป็นบวกจะเพิ่ม หากเป็นลบจะลด
     const newQuantity = productToUpdate.initialquantity + quantity;
 
+    /// lower than ZERO
+    if (newQuantity < 0) alert("จำนวนไม่ถูกต้อง");
+      else {
     const { error } = await DB
-      .from('product')
-      .update({ initialquantity: newQuantity })
-      .eq('productid', productId);
-    
+    .from('product')
+    .update({ initialquantity: newQuantity })
+    .eq('productid', productId); 
     if (error) throw error;
-
+    
     setProducts(products.map(p => 
       p.productid === productId ? { ...p, initialquantity: newQuantity } : p
     ));
-
+    
     console.log('อัปเดตจำนวนสินค้าสำเร็จ!');
-
+  }
+    
   } catch (e) {
     setError('ไม่สามารถอัปเดตจำนวนสินค้าได้: ' + e.message);
     console.error('Error updating quantity:', e);

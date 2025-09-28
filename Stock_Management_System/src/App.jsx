@@ -4,8 +4,8 @@ import TranPage from "./Page/TranLogPage";
 function App() {
  return(
 <div className="App">  
-  {/* <MPL/> */}
-  <TranPage visble = {true}/>
+  <MPL/>
+  {/* <TranPage visble = {true}/> */}
   <Mfooter/>
 </div>
  );
