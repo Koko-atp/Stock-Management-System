@@ -29,4 +29,4 @@ const Pfooter = () => {
   );
 };
 
-export default Mfooter;
+export default Pfooter;

@@ -1,5 +1,5 @@
 import MPL from "./Page/MainProductListPage";
-import Mfooter from "./cpn/Pagefooter";
+import Pfooter from "./cpn/Pagefooter";
 import ProductLog from "./Page/TransaclogPage";
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
 <div className="App">  
   <MPL/>
   {/* <ProductLog popupstate={true}/>    ยังไม่เสร็จ    */} 
-  <Mfooter/>
+  <Pfooter/>
 </div>
  ); 
 }
