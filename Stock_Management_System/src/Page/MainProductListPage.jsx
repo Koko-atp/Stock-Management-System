@@ -3,6 +3,7 @@ import DB from '../assets/DB'
 import Modal from '../cpn/Modal';
 import EditProductModal from '../cpn/editproduct';
 import AddProductModal from '../cpn/addproduct';
+import ProductLog from "./TransaclogPopUp";
 import '../Page/MPLP.css'
 
 function MPL(){
@@ -18,7 +19,8 @@ function MPL(){
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false); 
-
+  const[Showhistory , setShowhistory] = useState(false);
+  const[ProducHis , setProductHis] = useState([]);
 
   const fetchProducts = async () => {
     try {
@@ -208,6 +210,17 @@ const handleDeleteProduct = async (productId) => {
   }
 };
 
+const openHistory = async(productId)=> {
+  setShowhistory(true);
+  setProductHis(productId);
+};
+
+const closeHis = () => {
+  setShowhistory(false);
+}
+
+
+
   if (loading) return <div className="loading">กำลังโหลดข้อมูล...</div>;
   if (error) return <div className="error">{error}</div>;
 
@@ -266,6 +279,9 @@ const handleDeleteProduct = async (productId) => {
                   <button className = "btn_plus_minus" onClick={() => handleDeleteProduct(product.productid)}>
                       ลบสินค้า
                   </button>
+                  <button className = "btn_history" onClick={() => openHistory( product.productid)}>
+                      his
+                  </button>
                   </div>
                   </td>
                 </tr>
@@ -293,6 +309,12 @@ const handleDeleteProduct = async (productId) => {
         onClose={closeAddModal}
         onSave={handleAddSave}
       />
+
+      <ProductLog popupstate={Showhistory} 
+      productId={ProducHis}
+      closeHis={closeHis}
+      /> 
+
     </div>
   );
 }

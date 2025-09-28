@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import DB from "../assets/DB";
 import './transac.css';
 
-function ProductLog({popupstate}) {
+function ProductLog({popupstate , productId , closeHis }) {
     const[LogData , setLogData] = useState([]);
+    
 
 
     ////////////    Load Log    ////////////
     const fetchLog = async () => {
        try{
            const{data ,error} = await DB.from('stocktransaction')
-           .select('quantity , note , transactiondate ,  transactionid   , transactiontype( transactiontypeid , typename )')
+           .select('quantity , note , transactiondate ,  transactionid   , transactiontype( transactiontypeid , typename ) , product(productid)')
+           .eq('productid' , productId)
            .order('transactiondate' , {ascending: false})
            .limit(10);
            setLogData(data);
@@ -31,7 +33,7 @@ function ProductLog({popupstate}) {
     return(
         <div className="productlog_Popup">
         <div className="LogContent">
-            <button className="closebutton" >
+            <button className="closebutton" onClick={() => closeHis()}>
                 -
             </button>
             <div className="TableTitle">ประวัติการทำรายการ</div>
