@@ -52,7 +52,7 @@ function ProductLog({popupstate , productId , closeHis }) {
                 <tbody>
                     {LogData.map((pLog ) => (
                         <tr key= {pLog.transactionid}>
-                        <td>{pLog.transactiondate}</td>
+                        <td>{pLog.transactiondate.split('T')[0]}</td>
                         <td>{pLog.quantity}</td>
                         <td>{pLog.transactiontype.typename}</td>
                         <td>{pLog.note || '-'}</td>

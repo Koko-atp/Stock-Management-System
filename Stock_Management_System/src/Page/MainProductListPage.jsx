@@ -60,7 +60,7 @@ function MPL(){
     fetchCategories();
   }, [categories]); 
   
-  
+ //ฟังก์ชัน Search หาสินค้า 
   useEffect(() => {
     const results = products.filter(product =>
       product.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -92,34 +92,55 @@ function MPL(){
 
    //ฟังก์ชันเพื่อจัดการการบันทึกจำนวนสินค้า
   const handleSaveQuantity = async (productId, quantity) => {
-  try {
-    const productToUpdate = products.find(p => p.productid === productId);
-    if (!productToUpdate) throw new Error("ไม่พบสินค้า");
+    try {
+      const productToUpdate = products.find(p => p.productid === productId);
+      if (!productToUpdate) throw new Error("ไม่พบสินค้า");
 
-    // หาก quantity เป็นบวกจะเพิ่ม หากเป็นลบจะลด
-    const newQuantity = productToUpdate.initialquantity + quantity;
+      const newQuantity = productToUpdate.initialquantity + quantity;
 
-    /// lower than ZERO
-    if (newQuantity < 0) alert("จำนวนไม่ถูกต้อง");
-      else {
-    const { error } = await DB
-    .from('product')
-    .update({ initialquantity: newQuantity })
-    .eq('productid', productId); 
-    if (error) throw error;
-    
-    setProducts(products.map(p => 
-      p.productid === productId ? { ...p, initialquantity: newQuantity } : p
-    ));
-    
-    console.log('อัปเดตจำนวนสินค้าสำเร็จ!');
-  }
-    
-  } catch (e) {
-    setError('ไม่สามารถอัปเดตจำนวนสินค้าได้: ' + e.message);
-    console.error('Error updating quantity:', e);
-  }
-};
+      if (newQuantity < 0) {
+        alert("จำนวนไม่ถูกต้อง");
+      } else {
+        const { error: updateError } = await DB
+          .from('product')
+          .update({ initialquantity: newQuantity })
+          .eq('productid', productId);
+
+        if (updateError) throw updateError;
+
+        // ประเภทการทำรายการ (1 = รับเข้า, 2 = เบิกออก)
+        const transactionTypeId = quantity > 0 ? 1 : 2;
+
+        // Insert ข้อมูลลง stocktransaction
+        const { error: logError } = await DB
+          .from('stocktransaction')
+          .insert({
+            transactiontypeid: transactionTypeId,
+            productid: productId,
+            userid: 1, // ← ใส่ userid เป็น 1 ไว้ชั่วคราว
+            transactiondate: new Date().toISOString().split('T')[0],
+            quantity: Math.abs(quantity),
+            note: transactionTypeId === 1 
+                    ? 'เพิ่มจำนวนเข้าคลัง' 
+                    : 'เบิก/ลดจำนวนสินค้าออกจากคลัง'
+          });
+
+        if (logError) throw logError;
+
+        // อัปเดต State
+        setProducts(products.map(p =>
+          p.productid === productId ? { ...p, initialquantity: newQuantity } : p
+        ));
+
+        console.log('✅ อัปเดตสินค้าและบันทึก Log เรียบร้อย');
+      }
+    } catch (e) {
+      setError('ไม่สามารถอัปเดตจำนวนสินค้าได้: ' + e.message);
+      console.error('Error updating quantity:', e);
+    } finally {
+      closeModal();
+    }
+  };
 
   // ฟังก์ชันสำหรับเปิด Modal แก้ไข
   const openEditModal = (product) => {
