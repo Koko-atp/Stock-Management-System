@@ -283,7 +283,7 @@ const closeHis = () => {
                       ลบสินค้า
                   </button>
                   <button className = "btn_history" onClick={() => openHistory( product.productid)}>
-                      his
+                      ประวัติ
                   </button>
                   </div>
                   </td>
