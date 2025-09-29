@@ -252,19 +252,21 @@ const closeHis = () => {
 
     <div className="pos-container">
       <header className="header">
-        <h1>คลังสินค้า</h1>
       </header>
       <main className="main-content">
-        <h2>รายการสินค้า</h2>
+ 
         <div className="product-actions">
-          <button className="btn btn-save-add" onClick={openAddModal}>เพิ่มสินค้าใหม่</button>
+          <h1>คลังสินค้า</h1>
+          <h2><div className='bottom'>รายการสินค้า</div></h2>
           <input
             type="text"
-            placeholder="ค้นหาสินค้า (SKU, ชื่อ, ราคา, หมวดหมู่)"
+            placeholder="🔍 ค้นหาสินค้า (SKU, ชื่อ, ราคา, หมวดหมู่)"
             className="search-input"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          <button className="btn btn-save-add" onClick={openAddModal}>เพิ่มสินค้าใหม่</button>
+
         </div>
         <div className="product-list-container">
           <table className="product-table">

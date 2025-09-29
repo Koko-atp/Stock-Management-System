@@ -1,253 +1,171 @@
-body{
-  background-color: #333;
+/* ======================================= */
+/* 1. LAYOUT & TYPOGRAPHY (อ้างอิงจาก App.jsx) */
+/* ======================================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f9; /* สีพื้นหลังที่ดูสะอาดตา */
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
-.pos-container {
 
-  margin: 0 auto;
-  padding: 20px;
+.pos-container {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 20px;
 }
 
 .header {
-  text-align: center;
-  margin-bottom: 40px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #ddd;
+    text-align: left; /* เปลี่ยนเป็นชิดซ้ายตามรูป */
+    margin-bottom: 30px;
 }
 
+h1 {
+    color: #1a2a47; 
+    font-size: 2.5rem;
+    font-weight: 600;
+}
 .main-content {
-  background-color: #00ef70;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-h1, h2, h3 {
-  color: #fff;
+
+/* ======================================= */
+/* 2. SEARCH & HEADER ACTIONS (ตรงตามรูป) */
+/* ======================================= */
+.product-actions {
+    display: flex;
+    justify-content: space-between; /* แยกปุ่มกับช่องค้นหา */
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 20px;
 }
 
 .search-input {
-  padding: 10px;
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  margin-left: 20px;
+    flex-grow: 1; /* ให้ช่องค้นหายาวเต็มพื้นที่ */
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f8f9fa; /* สีพื้นหลังอ่อนๆ ในช่องค้นหา */
+    max-width: 500px; /* จำกัดความกว้างช่องค้นหาตามรูป */
 }
 
-.product-list-container {
-  overflow-x: auto;
-  width: auto;
+/* กลุ่มปุ่ม (เพิ่มสินค้าใหม่/จัดการหมวดหมู่) */
+.add-actions-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
+/* หากคุณใช้แค่ปุ่มเพิ่มสินค้าใหม่ปุ่มเดียว */
+.btn-save-add { 
+    background-color: #007bff; 
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-save-add:hover {
+    background-color: #0056b3;
+}
+
+
+/* ======================================= */
+/* 3. TABLE STYLES (เน้นความเรียบง่าย) */
+/* ======================================= */
 .product-table {
-  width: auto;
-  border-collapse: collapse;
-  margin-top: 20px;
-  white-space: nowrap;
-  min-width: 100px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
 }
 
 .product-table th, .product-table td {
-  border: 1px solid #555;
-  padding: 12px;
-  text-align: center;
-  color: #fff;
-
+    padding: 15px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
 }
 
-.product-table th {
-  background-color: #555;
-  font-weight: bold;
+/* ส่วนหัวตาราง (Thead) - ไม่มีพื้นหลังเข้มมาก เน้นเส้นแบ่ง */
+.product-table thead th {
+    background-color: #ffffff; /* พื้นหลังขาว */
+    color: #495057;
+    font-weight: 600;
+    text-transform: none; /* ไม่บังคับตัวพิมพ์ใหญ่ */
+    font-size: 0.95rem;
 }
 
-.product-table tr:nth-child(odd) {
-  background-color: #2918deb7;
+/* ส่วนเนื้อหาตาราง (Tbody) */
+.product-table tbody tr:hover {
+    background-color: #f1f1f1; 
 }
 
-.product-table tr:nth-child(even) {
-  background-color: #3d3d3d;
+/* แถวสินค้าเหลือน้อย (Low Stock) */
+.product-table tbody tr.low-stock {
+    background-color: #fff3cd; 
+    color: #856404; 
+    font-weight: 500;
+}
+.product-table tbody tr.low-stock:hover {
+    background-color: #ffe8a1; 
 }
 
-.product-table tr:hover {
-  background-color: #5a5a5a;
+/* จัดปุ่มในคอลัมน์ "รายการเพิ่มเติม" */
+.more_items_button {
+    display: flex;
+    gap: 5px; /* เว้นระยะห่างระหว่างปุ่ม */
+    flex-wrap: wrap; /* ให้ปุ่มขึ้นบรรทัดใหม่ได้ถ้าพื้นที่ไม่พอ */
 }
 
-.product-table .low-stock td {
-  background-color: #ff0000 !important;
-}
 
-.loading, .error {
-  text-align: center;
-  font-size: 1.2em;
-  padding: 50px;
-  color: #fff;
-}
+/* ======================================= */
+/* 4. BUTTONS STYLES */
+/* ======================================= */
 
-.error {
-  color: #ff4d4f;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-
-}
-.modal-content h3{
-  color: #000;
-}
-
-.modal-input-group {
-  margin-top: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.modal-input-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
-
-.modal-input-group input {
-  width: 100px;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 1rem;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-.btn_plus_minus{
-  background-color: #007bff;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 3px;
-}
+/* สไตล์ปุ่มทั่วไปสำหรับ Edit/Delete/History */
 .btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-.more_items_button{
-  display: flex;
-  flex-direction: row; 
-  gap: 5px;
-  align-items: center;
+    padding: 6px 10px; /* ปุ่มเล็กและกะทัดรัด */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    background-color: #f8f9fa;
+    color: #333;
 }
 
-.btn-save {
-  background-color: #4CAF50;
-  color: white;
+/* ปุ่ม เพิ่มลดจำนวน (btn_plus_minus) และ ประวัติ (btn_history) */
+.btn_plus_minus, .btn_history {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+}
+.btn_plus_minus:hover, .btn_history:hover {
+    background-color: #dee2e6;
 }
 
-.btn-cancel {
-  background-color: #f44336;
-  color: white;
+/* ปุ่มแก้ไขข้อมูลสินค้า (btn-edit) */
+.btn-edit {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #333;
+}
+.btn-edit:hover {
+    background-color: #e0a800;
 }
 
-.modal-input-group {
-  margin-top: 1.5rem;
-  margin-bottom: 2rem;
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
+/* สไตล์ Modal ยังใช้ของเดิมที่เคยให้ไปได้เลย */
+/* ... (Modal CSS) ... */
 
-.modal-input-group select {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.modal-input-group input {
-  width: 100px;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 1rem;
-}
-/* สำหรับปุ่มแก้ไข */
-.btn-edit , .btn_history {
-  background-color: #007bff;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 3px;
-}
-
-
-
-/* สำหรับกลุ่มฟอร์มใน Modal */
-.modal-form-group {
-  margin-bottom: 1rem;
-  text-align: left;
-}
-
-.modal-form-group label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.modal-form-group input {
-  width: 95%;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.modal-form-group select{
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-/* เพิ่มในส่วนสุดท้ายของไฟล์ */
-.product-actions {
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.btn-add {
-  background-color: #e80e0e;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-.btn-save-add{
-  background-color: #c70000;
-  
+.loading{
+    font-size: large;
+    text-align: center;
+    margin-top: 50px;
 }
