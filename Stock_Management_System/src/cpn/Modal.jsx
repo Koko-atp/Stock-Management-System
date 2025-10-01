@@ -19,7 +19,6 @@ const Modal = ({ isVisible, product, onClose, onSave }) => {
     const finalQuantity = transactionType === 'add' ? quantity : -quantity;
     
     onSave(product.productid, finalQuantity);
-    onClose();
   };
 
   return (
