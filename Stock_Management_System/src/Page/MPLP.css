@@ -3,21 +3,26 @@
 /* ======================================= */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f9; /* สีพื้นหลังที่ดูสะอาดตา */
+    background: rgba(255, 255, 239, 1);
     color: #333;
     margin: 0;
     padding: 0;
 }
 
 .pos-container {
-    max-width: 1400px;
-    margin: 40px auto;
+    max-width: 1600px;
+    margin: 0 auto;
     padding: 20px;
+    padding-bottom: 80px;
+    max-height: max-content;
+    min-width: min-content;
+    
 }
 
 .header {
     text-align: left; /* เปลี่ยนเป็นชิดซ้ายตามรูป */
     margin-bottom: 30px;
+    
 }
 
 h1 {
@@ -30,8 +35,68 @@ h1 {
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid black;
+
+}
+.border{
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+}
+.Logo {
+    position: absolute;
+    left: 100px;
+    top: -30px;
+
+
+    display: flex;
+
+    width: 300px;
+    height: 90px;
+    background-color: white;
+    padding: 10px;
+    padding-top: 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.5)
+}
+.Logo img{
+    height: 50px;
+    margin-left:15px;
+    margin-right: 15px;
+    margin-top: 30px;
+}
+.page-header-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    margin-left: 90px;
 }
 
+.header-icon {
+    align-items: flex-start;
+    font-size: 50px; 
+    color: #2c3e50; 
+}
+
+.header-text-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-main-text {
+    font-size: 36px; 
+    font-weight: 300; 
+    color: #000000; 
+    line-height: 1.2;
+}
+
+
+.header-sub-text {
+    font-size: 24px; 
+    color: #7f8c8d; 
+    text-align: center;
+}
 
 /* ======================================= */
 /* 2. SEARCH & HEADER ACTIONS (ตรงตามรูป) */
@@ -41,6 +106,7 @@ h1 {
     justify-content: space-between; /* แยกปุ่มกับช่องค้นหา */
     align-items: center;
     margin-bottom: 25px;
+    margin-top: 40px;
     gap: 20px;
 }
 
@@ -48,7 +114,7 @@ h1 {
     flex-grow: 1; /* ให้ช่องค้นหายาวเต็มพื้นที่ */
     padding: 10px 15px;
     border: 1px solid #ced4da;
-    border-radius: 8px;
+    border-radius: 15px;
     font-size: 1rem;
     background-color: #f8f9fa; /* สีพื้นหลังอ่อนๆ ในช่องค้นหา */
     max-width: 500px; /* จำกัดความกว้างช่องค้นหาตามรูป */
@@ -63,10 +129,10 @@ h1 {
 
 /* หากคุณใช้แค่ปุ่มเพิ่มสินค้าใหม่ปุ่มเดียว */
 .btn-save-add { 
-    background-color: #007bff; 
-    color: white;
+    background-color: #007bff00; 
+    color: rgb(0, 0, 0);
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 30px;
     font-weight: 500;
     border: none;
     border-radius: 8px;
@@ -74,7 +140,16 @@ h1 {
     transition: background-color 0.2s;
 }
 .btn-save-add:hover {
-    background-color: #0056b3;
+    background-color: #0057b300;
+}
+
+.add-new-product{
+    display: flex;
+}
+
+.add-new-product p {
+    font-size: larger;
+    font-weight:bold;
 }
 
 
@@ -90,7 +165,7 @@ h1 {
 
 .product-table th, .product-table td {
     padding: 15px 12px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #e9ecef;
 }
 
@@ -110,19 +185,20 @@ h1 {
 
 /* แถวสินค้าเหลือน้อย (Low Stock) */
 .product-table tbody tr.low-stock {
-    background-color: #fff3cd; 
-    color: #856404; 
+    background-color: #ff00006d; 
+    color: #000000; 
     font-weight: 500;
 }
 .product-table tbody tr.low-stock:hover {
-    background-color: #ffe8a1; 
+    background-color: #f1f1f1; 
 }
 
 /* จัดปุ่มในคอลัมน์ "รายการเพิ่มเติม" */
 .more_items_button {
     display: flex;
-    gap: 5px; /* เว้นระยะห่างระหว่างปุ่ม */
-    flex-wrap: wrap; /* ให้ปุ่มขึ้นบรรทัดใหม่ได้ถ้าพื้นที่ไม่พอ */
+    gap: 2px;
+    flex-wrap: nowrap; /* ให้ปุ่มขึ้นบรรทัดใหม่ได้ถ้าพื้นที่ไม่พอ */
+    margin-left:75px;
 }
 
 
@@ -132,40 +208,354 @@ h1 {
 
 /* สไตล์ปุ่มทั่วไปสำหรับ Edit/Delete/History */
 .btn {
-    padding: 6px 10px; /* ปุ่มเล็กและกะทัดรัด */
+    padding:9px; /* ปุ่มเล็กและกะทัดรัด */
     border: 1px solid #ced4da;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.85rem;
     transition: background-color 0.2s ease, border-color 0.2s ease;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa00;
     color: #333;
 }
 
 /* ปุ่ม เพิ่มลดจำนวน (btn_plus_minus) และ ประวัติ (btn_history) */
 .btn_plus_minus, .btn_history {
+    border: none;
     background-color: #e9ecef;
     border-color: #ced4da;
 }
 .btn_plus_minus:hover, .btn_history:hover {
-    background-color: #dee2e6;
+    border: none;
+    background-color: #dee2e600;
 }
 
 /* ปุ่มแก้ไขข้อมูลสินค้า (btn-edit) */
 .btn-edit {
+    border: none;
     background-color: #ffc107;
     border-color: #ffc107;
     color: #333;
 }
 .btn-edit:hover {
-    background-color: #e0a800;
+    border: none;
+    background-color: #e0a80000;
+}
+/* ======================================= */
+/* BOTTOM NAVIGATION BAR STYLES */
+/* ======================================= */
+
+.bottom-nav {
+    position: fixed; /* 💡 ทำให้ติดอยู่กับด้านล่างของหน้าจอ */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    display: flex;
+    justify-content: space-around; /* จัดให้ไอคอนกระจายตัวอย่างเท่าเทียม */
+    align-items: center;
+    
+    padding: 10px 0;
+    height: 70px; /* ความสูงของแถบนำทาง */
+    
+    background-color: #ffffff; /* พื้นหลังขาว */
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08); /* เงาด้านบนเล็กน้อย */
+    border: 1px solid rgba(0, 0, 0, 0.65);
+    border-top-left-radius: 20px; /* โค้งมนมุมซ้ายบน */
+    border-top-right-radius: 20px; /* โค้งมนมุมขวาบน */
+    z-index: 1000; /* ให้อยู่เหนือองค์ประกอบอื่น ๆ */
+    
+    /* จำกัดความกว้างให้ตรงกลางจอถ้าต้องการ */
+    max-width: auto; 
+    margin: 0 auto; 
 }
 
-/* สไตล์ Modal ยังใช้ของเดิมที่เคยให้ไปได้เลย */
-/* ... (Modal CSS) ... */
+.nav-item {
+    display: flex;
+    flex-direction: column; /* ไอคอนอยู่ด้านบน ข้อความอยู่ด้านล่าง */
+    align-items: center;
+    cursor: pointer;
+    padding: 0 10px;
+    transition: color 0.2s;
+    flex-grow: 1; /* ให้แต่ละรายการมีพื้นที่เท่ากัน */
+}
 
+/* สไตล์ไอคอน */
+.nav-icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: #a0a0a0; /* สีเทาอ่อนสำหรับไอคอนที่ไม่ได้เลือก */
+}
+
+/* สไตล์ข้อความ */
+.nav-label {
+    font-size: 0.75rem;
+    color: #a0a0a0; /* สีเทาอ่อนสำหรับข้อความ */
+    font-weight: 500;
+}
+
+/* สไตล์สำหรับ Active Item (รายการที่เลือกอยู่) */
+.nav-item.active .nav-icon,
+.nav-item.active .nav-label {
+    color: #1a2a47; /* 💡 สีน้ำเงินเข้ม (ตามธีม) สำหรับรายการที่เลือก */
+    font-weight: 600;
+}
+
+/* สไตล์สำหรับรูปโปรไฟล์ (ถ้าใช้รูป) */
+.nav-profile-img {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    margin-bottom: 5px;
+    object-fit: cover;
+    border: 2px solid transparent; /* ขอบโปร่งใส */
+}
+
+/* สไตล์สำหรับ Active Profile Image (ถ้าใช้รูปโปรไฟล์) */
+.nav-item.active .nav-profile-img {
+    border-color: #1a2a47; /* ไฮไลต์ด้วยขอบสีน้ำเงินเข้ม */
+}
+
+/****************สำหรับ Loading และ Error*************************/
 .loading{
     font-size: large;
     text-align: center;
     margin-top: 50px;
+}
+.error{
+    font-size: large;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/****************สำหรับ Loading และ Error*************************/
+
+
+/****************สำหรับ Form ต่างๆ*******************************/
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1010;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+}
+.modal-content h3{
+  color: #000;
+}
+
+.modal-input-group {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  gap: 2px;
+}
+
+.modal-input-group input {
+  width: 100px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.modal-input-group select {
+
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modal-form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.modal-form-group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  border-radius: 30%;
+}
+
+.modal-form-group input {
+  width: 95%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+
+.modal-form-group select{
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius:15px;
+}
+
+.custom-select-wrapper select {
+    /* สำหรับ Chrome, Safari, Firefox */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* สำหรับ IE/Edge */
+    /* ถ้าต้องการรองรับ ให้เพิ่มการซ่อนแบบเฉพาะเจาะจง */
+    
+    /* ตรวจสอบให้แน่ใจว่า select ยังคงกินพื้นที่เพื่อรับ input */
+    padding-right: 25px; /* เพิ่ม padding ขวาให้มีที่สำหรับ Icon */
+}
+/****************สำหรับ Form ต่างๆ*******************************/
+
+/* ======================================= */
+/* IMAGE UPLOAD / DISPLAY STYLES */
+/* ======================================= */
+
+.image-upload-label {
+    /* อาจจะต้องปรับ margin ด้านล่างเพื่อให้ชิดกับกล่องรูปภาพ */
+    margin-bottom: 5px; 
+    display: block;
+}
+
+.image-upload-area {
+    display: flex;
+    gap: 15px; /* ระยะห่างระหว่างกล่องแสดงรูปภาพและปุ่ม + */
+    align-items: center;
+}
+
+/* 1. สไตล์สำหรับกล่องแสดงรูปภาพหลัก (Placeholder / รูปปัจจุบัน) */
+.current-image-container {
+    width: 90px;
+    height: 90px;
+    background-color: #f8f9fa; /* สีเทาอ่อน */
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* ซ่อนส่วนที่เกินกรอบ */
+}
+
+.image-placeholder-icon {
+    font-size: 3rem;
+    color: #adb5bd; /* สีเทากลาง */
+}
+
+.current-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* จัดให้รูปภาพเต็มพื้นที่โดยไม่เสียสัดส่วน */
+}
+
+
+/* 2. สไตล์สำหรับปุ่มอัปโหลดใหม่ (+) */
+.upload-button {
+    width: 50px;
+    height: 50px;
+    background-color: #f1f3f5; /* สีเทาอ่อนมาก */
+    border: 1px dashed #ced4da; /* เส้นประ */
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.upload-button:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.upload-plus-icon {
+    font-size: 1.5rem;
+    color: #495057; 
+}
+
+.product-image-cell img{
+    
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    object-fit:fill;
+}
+
+.current-image-container {
+    position: relative; 
+    width: 90px;
+    height: 90px;
+    background-color: #f8f8fa; 
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+
+.remove-image-button {
+    position: absolute;
+    top: 45px; 
+    
+    /* 💡 MODIFIED: ซ่อนปุ่มเมื่อไม่ได้ Hover */
+    opacity: 0;
+    transform: translateY(-50%) scale(0.5); /* เริ่มต้นเล็กและเลื่อนขึ้นเล็กน้อย */
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out; /* เพิ่ม Transition */
+    
+    /* สไตล์ปุ่มเดิม */
+    
+    background-color: #e7162b75; 
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 300px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1010;
+}
+
+.current-image-container:hover .remove-image-button {
+    /* 💡 NEW: เมื่อ Hover บน Container ให้แสดงปุ่ม */
+    opacity: 1;
+    transform: translateY(-50%) scale(1); /* ขยายกลับสู่ขนาดเต็ม */
+}
+
+/* ทำให้รูปภาพที่ถูกเลือกแสดงเต็มพื้นที่ */
+.current-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

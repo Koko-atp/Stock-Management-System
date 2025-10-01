@@ -5,6 +5,18 @@ import EditProductModal from '../cpn/editproduct';
 import AddProductModal from '../cpn/addproduct';
 import ProductLog from "./TransaclogPopUp";
 import '../Page/MPLP.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+    faFileArrowDown , 
+    faArrowsUpDown, 
+    faPenToSquare, 
+    faTrashCan, 
+    faCartPlus,  
+    faBoxArchive, // ไอคอนสำหรับคลังสินค้า (แทนกล่อง)
+    faFileInvoice, // ไอคอนสำหรับประวัติรวม
+    faBell, // ไอคอนสำหรับแจ้งเตือน
+    faGear // สำหรับปุ่มเพิ่มสินค้าใหม่ด้านบน
+} from '@fortawesome/free-solid-svg-icons';
 
 function MPL(){
   const [products, setProducts] = useState([]); // State สำหรับเก็บข้อมูลสินค้า
@@ -250,29 +262,40 @@ const closeHis = () => {
 
   return (
 
-    <div className="pos-container">
+    <><div className="pos-container">
       <header className="header">
       </header>
+        <div className='Logo'>
+          <img src='src\assets\pic\f111a4d9e98c2f1849285d198126666303e67f65.png'></img><h1>PPJ SPROT</h1>
+        </div>
       <main className="main-content">
- 
         <div className="product-actions">
-          <h1>คลังสินค้า</h1>
-          <h2><div className='bottom'>รายการสินค้า</div></h2>
+          <div className="page-header-logo">
+            {/* เราจะใช้ไอคอน faBoxArchive ที่คุณ import มาแล้ว */}
+            <FontAwesomeIcon icon={faBoxArchive} className="header-icon" />
+            <div className="header-text-container">
+              <span className="header-main-text">คลังสินค้า</span>
+              <span className="header-sub-text">หน้าหลัก</span>
+            </div>
+          </div>
+          <div className='bottom'></div>
           <input
             type="text"
             placeholder="🔍 ค้นหาสินค้า (SKU, ชื่อ, ราคา, หมวดหมู่)"
             className="search-input"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button className="btn btn-save-add" onClick={openAddModal}>เพิ่มสินค้าใหม่</button>
-
+            onChange={(e) => setSearchTerm(e.target.value)} />
+          <div className='add-new-product'>
+            <button className="btn-save-add" onClick={openAddModal}><FontAwesomeIcon icon={faCartPlus} /></button>
+            <p>เพิ่มสินค้าใหม่</p>
+          </div>
         </div>
+        <div className="border"></div>
         <div className="product-list-container">
           <table className="product-table">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>รูปภาพ</th>
                 <th>SKU</th>
                 <th>ชื่อสินค้า</th>
                 <th>หมวดหมู่สินค้า</th>
@@ -286,62 +309,91 @@ const closeHis = () => {
             <tbody>
               {filteredProducts.map((product) => (
                 <tr key={product.productid}
-                    className={product.initialquantity < product.minimumcriteria ? 'low-stock' : ''}>
-                  <td>{product.productid}</td>
+                  className={product.initialquantity < product.minimumcriteria ? 'low-stock' : ''}>
+                  <td>
+                    <div className="product-image-cell">
+                        <img src={product.image_url} alt={`รูปภาพสินค้า ${product.productname}`} className="product-thumbnail" />
+                    </div>
+                  </td>
                   <td>{product.sku}</td>
                   <td>{product.productname}</td>
-                  <td>{getCategoryName(product.categoryid)}</td> 
+                  <td>{getCategoryName(product.categoryid)}</td>
                   <td>{product.price} บาท</td>
                   <td>{product.initialquantity} ชิ้น</td>
                   <td>{product.minimumcriteria} ชิ้น</td>
                   <td>
-                  <div className='more_items_button'>
-                  <button className = "btn_plus_minus" onClick={() => handleUpdateQuantity(product)}>
-                      เพิ่มลดจำนวนสินค้า
-                  </button>
-                  <button className="btn-edit" onClick={() => openEditModal(product)}>
-                      แก้ไขข้อมูลสินค้า
-                  </button>
-                  <button className = "btn_plus_minus" onClick={() => handleDeleteProduct(product.productid)}>
-                      ลบสินค้า
-                  </button>
-                  <button className = "btn_history" onClick={() => openHistory( product.productid)}>
-                      ประวัติ
-                  </button>
-                  </div>
+                    <div className='more_items_button'>
+                        <button className="btn btn_plus_minus" onClick={() => handleUpdateQuantity(product)}>
+                          <FontAwesomeIcon icon={faArrowsUpDown} />
+                        </button>
+                      <button className="btn btn_history" onClick={() => openHistory(product.productid)}>
+                        <FontAwesomeIcon icon={faFileArrowDown} />
+                      </button>
+                      <button className="btn btn-edit" onClick={() => openEditModal(product)}>
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                      </button>
+                      <button className="btn btn_plus_minus" onClick={() => handleDeleteProduct(product.productid)}>
+                        <FontAwesomeIcon icon={faTrashCan} />
+                      </button>
+                    </div>
                   </td>
                 </tr>
+
               ))}
+
             </tbody>
           </table>
+
         </div>
       </main>
       <Modal
         isVisible={isModalOpen}
         product={selectedProduct}
         onClose={closeModal}
-        onSave={handleSaveQuantity}
-      />
+        onSave={handleSaveQuantity} />
       <EditProductModal
         isVisible={isEditModalOpen}
         product={productToEdit}
         categories={categories}
         onClose={closeEditModal}
-        onSave={handleEditSave}
-      />
+        onSave={handleEditSave} />
       <AddProductModal
         isVisible={isAddModalOpen}
         categories={categories}
         onClose={closeAddModal}
-        onSave={handleAddSave}
-      />
+        onSave={handleAddSave} />
 
-      <ProductLog popupstate={Showhistory} 
-      productId={ProducHis}
-      closeHis={closeHis}
-      /> 
-
+      <ProductLog popupstate={Showhistory}
+        productId={ProducHis}
+        closeHis={closeHis} />
     </div>
+    
+    <nav className="bottom-nav">
+        <div className="nav-item active">
+          <FontAwesomeIcon icon={faBoxArchive} className="nav-icon" />
+          <span className="nav-label">คลังสินค้า</span>
+        </div>
+        <div className="nav-item">
+          <FontAwesomeIcon icon={faFileInvoice} className="nav-icon" />
+          <span className="nav-label">ประวัติรวม</span>
+        </div>
+        <div className="nav-item">
+          <FontAwesomeIcon icon={faBell} className="nav-icon" />
+          <span className="nav-label">การแจ้งเตือน</span>
+        </div>
+        <div className="nav-item">
+          <FontAwesomeIcon icon={faGear} className="nav-icon" />
+          <span className="nav-label">การตั้งค่า</span>
+        </div>
+        <div className="nav-item">
+          <img src="src\assets\pic\f111a4d9e98c2f1849285d198126666303e67f65.png" alt="Profile" className="nav-profile-img" />
+          <span className="nav-label">โปรไฟล์</span>
+        </div>
+      </nav>
+    </>
+
+  
+    
   );
 }
 
