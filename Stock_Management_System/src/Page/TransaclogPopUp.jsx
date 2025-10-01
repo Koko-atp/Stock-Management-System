@@ -14,7 +14,6 @@ function ProductLog({popupstate , productId , closeHis }) {
            .select('quantity , note , transactiondate ,  transactionid   , transactiontype( transactiontypeid , typename ) , product(productid)')
            .eq('productid' , productId)
            .order('transactiondate' , {ascending: false})
-           .limit(10);
            setLogData(data);
            if (error) throw error;
         } 
