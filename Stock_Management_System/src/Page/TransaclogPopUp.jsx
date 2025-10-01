@@ -28,11 +28,18 @@ function ProductLog({popupstate , productId , closeHis }) {
                 fetchLog();}
     } , [popupstate]);
 
+
+
+    const onclose = () => {
+        setLogData([]);
+        closeHis();
+    };
+
     if(!popupstate) return null;
     return(
         <div className="productlog_Popup">
         <div className="LogContent">
-            <button className="closebutton" onClick={() => closeHis()}>
+            <button className="closebutton" onClick={() => onclose()}>
                 -
             </button>
             <div className="TableTitle">ประวัติการทำรายการ</div>
