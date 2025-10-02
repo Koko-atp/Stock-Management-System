@@ -4,17 +4,21 @@ import {
     faFileInvoice, // ไอคอนสำหรับประวัติรวม
     faBell, // ไอคอนสำหรับแจ้งเตือน
     faGear // สำหรับปุ่มเพิ่มสินค้าใหม่ด้านบน
-  
 } from '@fortawesome/free-solid-svg-icons';
-function Pfooter() {
+import'../CSS/footer.css'
+
+function Pfooter({MainP , TransacP}) {
+
     return(
         <>
             <nav className="bottom-nav">
             <div className="nav-item active">
-          <FontAwesomeIcon icon={faBoxArchive} className="nav-icon" />
+          <FontAwesomeIcon icon={faBoxArchive} className="nav-icon" 
+          onClick={() => MainP()}/>
           <span className="nav-label">คลังสินค้า</span>
             </div>
-            <div className="nav-item">
+            <div className="nav-item" 
+            onClick={() =>TransacP()}>
           <FontAwesomeIcon icon={faFileInvoice} className="nav-icon" />
           <span className="nav-label">ประวัติรวม</span>
         </div>

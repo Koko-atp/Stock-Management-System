@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import DB from "../assets/DB";
 
-function TranPage (visible) {
+function TranPage ({visible}) {
     const[LogData , setLogData] = useState([]);
     const[search , setsearch] = useState(['']);
     const [filLog , setfilLog] = useState([]);
 
  /// LoadLog ///
-        const fetchLog = async () => {
+    const fetchLog = async () => {
        try{
            const{data ,error} = await DB.from('stocktransaction')
            .select('quantity , note , transactiondate ,  transactionid , transactiontype( transactiontypeid , typename ) , product( productname) ')
@@ -36,9 +36,7 @@ function TranPage (visible) {
               fetchLog() }
         },[visible]); 
 
-
     if(!visible) return null;
-
     return(
         <div className="contentholder">
 
@@ -46,6 +44,7 @@ function TranPage (visible) {
                 <div className="Logo">History</div>
                 <input className="searchbar"
                             placeholder="👾"
+                            value={search}
                             onChange={(e) => setsearch(e.target.value)}
                             >
                 </input>
