@@ -14,7 +14,6 @@ function ProductLog({popupstate , productId , closeHis }) {
            .select('quantity , note , transactiondate ,  transactionid   , transactiontype( transactiontypeid , typename ) , product(productid)')
            .eq('productid' , productId)
            .order('transactiondate' , {ascending: false})
-           .limit(10);
            setLogData(data);
            if (error) throw error;
         } 
@@ -39,9 +38,7 @@ function ProductLog({popupstate , productId , closeHis }) {
         <div className="productlog_Popup">
         <div className="LogContent">
             <button className="closebutton" onClick={() => onclose()}>
-
-
-                -
+            -
             </button>
             <div className="TableTitle">ประวัติการทำรายการ</div>
             <div className="TLog-Table">
