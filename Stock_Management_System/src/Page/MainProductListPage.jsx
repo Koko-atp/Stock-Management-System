@@ -3,8 +3,8 @@ import DB from '../assets/DB'
 import Modal from '../cpn/Modal';
 import EditProductModal from '../cpn/editproduct';
 import AddProductModal from '../cpn/addproduct';
-import ProductLog from "./TransaclogPopUp";
-import '../Page/MPLP.css'
+import ProductLog from "../cpn/TransaclogPopUp";
+import '../CSS/MPLP.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faFileArrowDown , 
@@ -309,7 +309,8 @@ const closeHis = () => {
             <tbody>
               {filteredProducts.map((product) => (
                 <tr key={product.productid}
-                  className={product.initialquantity < product.minimumcriteria ? 'low-stock' : ''}>
+                  className={product.initialquantity < product.minimumcriteria ? 'low-stock' : ''} 
+                  title={product.initialquantity < product.minimumcriteria ? 'เหลือน้อยแล้ว!' : ''}>
                   <td>
                     <div className="product-image-cell">
                         <img src={product.image_url} alt={`รูปภาพสินค้า ${product.productname}`} className="product-thumbnail" />
@@ -323,16 +324,16 @@ const closeHis = () => {
                   <td>{product.minimumcriteria} ชิ้น</td>
                   <td>
                     <div className='more_items_button'>
-                        <button className="btn btn_plus_minus" onClick={() => handleUpdateQuantity(product)}>
+                        <button className="btn btn_plus_minus" onClick={() => handleUpdateQuantity(product)} title='ทำรายการ เพิ่ม/ถอน'>
                           <FontAwesomeIcon icon={faArrowsUpDown} />
                         </button>
-                      <button className="btn btn_history" onClick={() => openHistory(product.productid)}>
+                      <button className="btn btn_history" onClick={() => openHistory(product.productid)} title='ประวัติการทำรายการของสินค้าชิ้นนี้'>
                         <FontAwesomeIcon icon={faFileArrowDown} />
                       </button>
-                      <button className="btn btn-edit" onClick={() => openEditModal(product)}>
+                      <button className="btn btn-edit" onClick={() => openEditModal(product)} title='แก้ไขรายละเอียด' >
                         <FontAwesomeIcon icon={faPenToSquare} />
                       </button>
-                      <button className="btn btn_plus_minus" onClick={() => handleDeleteProduct(product.productid)}>
+                      <button className="btn btn_plus_minus" onClick={() => handleDeleteProduct(product.productid)} title='ลบสินค้าจากคลัง'>
                         <FontAwesomeIcon icon={faTrashCan} />
                       </button>
                     </div>

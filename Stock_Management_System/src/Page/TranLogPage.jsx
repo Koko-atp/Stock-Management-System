@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DB from "../assets/DB";
 
-function TranPage (visible){
+function TranPage (visible) {
     const[LogData , setLogData] = useState([]);
     const[search , setsearch] = useState(['']);
     const [filLog , setfilLog] = useState([]);

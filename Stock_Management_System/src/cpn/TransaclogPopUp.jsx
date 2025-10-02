@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import DB from "../assets/DB";
-import './transac.css';
+import '../CSS/transac.css';
 
 function ProductLog({popupstate , productId , closeHis }) {
     const[LogData , setLogData] = useState([]);
