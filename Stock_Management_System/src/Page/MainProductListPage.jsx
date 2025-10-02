@@ -286,8 +286,7 @@ function MPL({open}){
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} />
         <div className='add-new-product'>
-          <button className="btn-save-add" onClick={openAddModal}><FontAwesomeIcon icon={faCartPlus} /></button>
-          <p>เพิ่มสินค้าใหม่</p>
+          <button className="btn-save-add" onClick={openAddModal}><FontAwesomeIcon icon={faCartPlus} /><p>เพิ่มสินค้าใหม่</p></button>
         </div>
       </div>
       <div className="border"></div>

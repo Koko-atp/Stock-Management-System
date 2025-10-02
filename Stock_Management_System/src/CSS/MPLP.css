@@ -138,6 +138,7 @@ h1 {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s;
+    margin-top: 22px;
 }
 .btn-save-add:hover {
     background-color: #0057b300;
@@ -148,8 +149,8 @@ h1 {
 }
 
 .add-new-product p {
-    font-size: larger;
     font-weight:bold;
+    margin-top: 0;
 }
 
 
