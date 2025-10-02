@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import DB from "../assets/DB";
-import './transac.css';
+import '../CSS/transac.css';
 
 function ProductLog({popupstate , productId , closeHis }) {
     const[LogData , setLogData] = useState([]);
@@ -27,9 +27,7 @@ function ProductLog({popupstate , productId , closeHis }) {
              if (popupstate) {
                 fetchLog();}
     } , [popupstate]);
-
-
-
+    
     const onclose = () => {
         setLogData([]);
         closeHis();
@@ -40,7 +38,7 @@ function ProductLog({popupstate , productId , closeHis }) {
         <div className="productlog_Popup">
         <div className="LogContent">
             <button className="closebutton" onClick={() => onclose()}>
-                -
+            -
             </button>
             <div className="TableTitle">ประวัติการทำรายการ</div>
             <div className="TLog-Table">

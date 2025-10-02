@@ -28,15 +28,16 @@ const Modal = ({ isVisible, product, onClose, onSave }) => {
         <p>จำนวนปัจจุบัน: {product?.initialquantity}</p>
         
         <div className="modal-input-group">
-          {/* เพิ่ม dropdown สำหรับเลือกประเภท */}
-          <select
-            value={transactionType}
-            onChange={(e) => setTransactionType(e.target.value)}
-          >
-            <option value="add">เพิ่มจำนวนสินค้า (+)</option>
-            <option value="subtract">ลดจำนวนสินค้า (-)</option>
-          </select>
-
+          <div className="custom-select-wrapper">
+            {/* เพิ่ม dropdown สำหรับเลือกประเภท */}
+            <select
+              value={transactionType}
+              onChange={(e) => setTransactionType(e.target.value)}
+            >
+              <option value="add">เพิ่มจำนวนสินค้า (+)</option>
+              <option value="subtract">ลดจำนวนสินค้า (-)</option>
+            </select>
+          </div>
           <input
             type="number"
             value={quantity}

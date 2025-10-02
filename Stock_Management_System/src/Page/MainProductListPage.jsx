@@ -3,15 +3,26 @@ import DB from '../assets/DB'
 import Modal from '../cpn/Modal';
 import EditProductModal from '../cpn/editproduct';
 import AddProductModal from '../cpn/addproduct';
-import ProductLog from "./TransaclogPopUp";
-import '../Page/MPLP.css'
+import ProductLog from "../cpn/TransaclogPopUp";
+import '../CSS/MPLP.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+    faFileArrowDown , 
+    faArrowsUpDown, 
+    faPenToSquare, 
+    faTrashCan, 
+    faCartPlus,  
+    faBoxArchive, // ไอคอนสำหรับคลังสินค้า (แทนกล่อง)
 
-function MPL(){
+} from '@fortawesome/free-solid-svg-icons';
+
+function MPL({open}){
+  
   const [products, setProducts] = useState([]); // State สำหรับเก็บข้อมูลสินค้า
   const [categories, setCategories] = useState([]); // State สำหรับเก็บข้อมูลหมวดหมู่
   const [searchTerm, setSearchTerm] = useState(''); // State สำหรับเก็บข้อมูลแถบค้นหา
   const [filteredProducts, setFilteredProducts] = useState([]); // State สำหรับเก็บข้อมูลสินค้าที่ถูกกรอง
-
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,14 +32,14 @@ function MPL(){
   const [isAddModalOpen, setIsAddModalOpen] = useState(false); 
   const[Showhistory , setShowhistory] = useState(false);
   const[ProducHis , setProductHis] = useState([]);
-
+  
   const fetchProducts = async () => {
     try {
       const { data, error } = await DB
-        .from('product')
-        .select('*')
-        .order('productid', { ascending: true });
-
+      .from('product')
+      .select('*')
+      .order('productid', { ascending: true });
+      
       if (error) throw error;
       setProducts(data);
     } catch (e) {
@@ -41,14 +52,14 @@ function MPL(){
   
   useEffect(() => {
     fetchProducts();
-
+    
     const fetchCategories = async () => {
       try {
         const { data, error } = await DB
-          .from('category')
-          .select('*')
-          .order('categoryid', { ascending: true });
-
+        .from('category')
+        .select('*')
+        .order('categoryid', { ascending: true });
+        
         if (error) throw error;
         
         setCategories(data);
@@ -58,9 +69,9 @@ function MPL(){
     };
     
     fetchCategories();
-  }, [categories]); 
+  }, [categories , open]); 
   
- //ฟังก์ชัน Search หาสินค้า 
+  //ฟังก์ชัน Search หาสินค้า 
   useEffect(() => {
     const results = products.filter(product =>
       product.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -72,11 +83,11 @@ function MPL(){
   }, [products, searchTerm, categories]);
   
   const getCategoryName = (categoryid) => {
-  const category = categories.find(cat => cat.categoryid === categoryid);
-  return category ? category.categoryname : 'ไม่พบหมวดหมู่';
-};
+    const category = categories.find(cat => cat.categoryid === categoryid);
+    return category ? category.categoryname : 'ไม่พบหมวดหมู่';
+  };
   
-
+  
   // ฟังก์ชันสำหรับเปิด Modal อัปเดตจำนวนสินค้า
   const handleUpdateQuantity = (product) => {
     setSelectedProduct(product);
@@ -89,30 +100,30 @@ function MPL(){
     setSelectedProduct(null);
   };
   
-
+  
    //ฟังก์ชันเพื่อจัดการการบันทึกจำนวนสินค้า
-  const handleSaveQuantity = async (productId, quantity) => {
-    try {
-      const productToUpdate = products.find(p => p.productid === productId);
-      if (!productToUpdate) throw new Error("ไม่พบสินค้า");
-
-      const newQuantity = productToUpdate.initialquantity + quantity;
-
-      if (newQuantity < 0) {
-        alert("จำนวนไม่ถูกต้อง");
-      } else {
-        const { error: updateError } = await DB
+   const handleSaveQuantity = async (productId, quantity) => {
+     try {
+       const productToUpdate = products.find(p => p.productid === productId);
+       if (!productToUpdate) throw new Error("ไม่พบสินค้า");
+       
+       const newQuantity = productToUpdate.initialquantity + quantity;
+       
+       if (newQuantity < 0) {
+         alert("จำนวนไม่ถูกต้อง");
+        } else {
+          const { error: updateError } = await DB
           .from('product')
           .update({ initialquantity: newQuantity })
           .eq('productid', productId);
-
-        if (updateError) throw updateError;
-
-        // ประเภทการทำรายการ (1 = รับเข้า, 2 = เบิกออก)
-        const transactionTypeId = quantity > 0 ? 1 : 2;
-
-        // Insert ข้อมูลลง stocktransaction
-        const { error: logError } = await DB
+          
+          if (updateError) throw updateError;
+          
+          // ประเภทการทำรายการ (1 = รับเข้า, 2 = เบิกออก)
+          const transactionTypeId = quantity > 0 ? 1 : 2;
+          
+          // Insert ข้อมูลลง stocktransaction
+          const { error: logError } = await DB
           .from('stocktransaction')
           .insert({
             transactiontypeid: transactionTypeId,
@@ -121,18 +132,18 @@ function MPL(){
             transactiondate: new Date().toISOString().split('T')[0],
             quantity: Math.abs(quantity),
             note: transactionTypeId === 1 
-                    ? 'เพิ่มจำนวนเข้าคลัง' 
-                    : 'เบิก/ลดจำนวนสินค้าออกจากคลัง'
+            ? 'เพิ่มจำนวนเข้าคลัง' 
+            : 'เบิก/ลดจำนวนสินค้าออกจากคลัง'
           });
-
-        if (logError) throw logError;
-
-        // อัปเดต State
-        setProducts(products.map(p =>
-          p.productid === productId ? { ...p, initialquantity: newQuantity } : p
-        ));
-
-        console.log('✅ อัปเดตสินค้าและบันทึก Log เรียบร้อย');
+          
+          if (logError) throw logError;
+          
+          // อัปเดต State
+          setProducts(products.map(p =>
+            p.productid === productId ? { ...p, initialquantity: newQuantity } : p
+          ));
+          
+          console.log('✅ อัปเดตสินค้าและบันทึก Log เรียบร้อย');
       }
     } catch (e) {
       setError('ไม่สามารถอัปเดตจำนวนสินค้าได้: ' + e.message);
@@ -141,7 +152,7 @@ function MPL(){
       closeModal();
     }
   };
-
+  
   // ฟังก์ชันสำหรับเปิด Modal แก้ไข
   const openEditModal = (product) => {
     setProductToEdit(product);
@@ -153,41 +164,41 @@ function MPL(){
     setIsEditModalOpen(false);
     setProductToEdit(null);
   };
-
+  
   const handleEditSave = async (productId, newFormData) => {
     try {
       const { error } = await DB
-        .from('product')
-        .update(newFormData) 
-        .eq('productid', productId);
+      .from('product')
+      .update(newFormData) 
+      .eq('productid', productId);
       
       if (error) throw error;
-
+      
       //ฟังก์ชันเพื่อดึงข้อมูลสินค้าทั้งหมดมาอัปเดต state ใหม่
       await fetchProducts();
       
       console.log('อัปเดตข้อมูลสินค้าสำเร็จ!');
-
+      
     } catch (e) {
       setError('ไม่สามารถอัปเดตข้อมูลสินค้าได้: ' + e.message);
       console.error('Error updating product data:', e);
     }
   };
-
-    //ฟังก์ชันสำหรับเปิด/ปิด Modal เพิ่มสินค้า
+  
+  //ฟังก์ชันสำหรับเปิด/ปิด Modal เพิ่มสินค้า
   const openAddModal = () => {
     setIsAddModalOpen(true);
   };
-
+  
   const closeAddModal = () => {
     setIsAddModalOpen(false);
   };
-
-// ฟังก์ชันสำหรับบันทึกสินค้าใหม่
-
-const handleAddSave = async (newProductData) => {
+  
+  // ฟังก์ชันสำหรับบันทึกสินค้าใหม่
+  
+  const handleAddSave = async (newProductData) => {
     
-  try {
+    try {
       const dataToInsert = {
         ...newProductData,
         createddate: new Date().toISOString().split('T')[0],
@@ -195,13 +206,13 @@ const handleAddSave = async (newProductData) => {
       };
       // ใช้คำสั่ง insert โดยตรง
       const { error } = await DB
-        .from('product')
-        .insert(dataToInsert);
-        
-        
+      .from('product')
+      .insert(dataToInsert);
+      
+      
       
       if (error) throw error;
-
+      
       await fetchProducts(); // ดึงข้อมูลใหม่เพื่อแสดงสินค้าที่เพิ่งเพิ่ม
       console.log('เพิ่มสินค้าใหม่สำเร็จ!');
     } catch (e) {
@@ -209,137 +220,156 @@ const handleAddSave = async (newProductData) => {
       console.error('Error adding new product:', e);
     }
   };
-
+  
   // ฟังก์ชันสำหรับลบสินค้า
-
-const handleDeleteProduct = async (productId) => {
-  if (window.confirm("คุณแน่ใจหรือไม่ว่าต้องการลบสินค้ารายการนี้?")) {
-    try {
-      const { error } = await DB
+  
+  const handleDeleteProduct = async (productId) => {
+    if (window.confirm("คุณแน่ใจหรือไม่ว่าต้องการลบสินค้ารายการนี้?")) {
+      try {
+        const { error } = await DB
         .from('product')
         .delete()
         .eq('productid', productId);
-      
-      if (error) throw error;
-
-      await DB.rpc('reset_productid');
-
-      await fetchProducts(); // ดึงข้อมูลใหม่เพื่อแสดงรายการที่อัปเดต
-      console.log('ลบสินค้าสำเร็จ!');
-
-    } catch (e) {
-      setError('ไม่สามารถลบสินค้าได้: ' + e.message);
-      console.error('Error deleting product:', e);
+        
+        if (error) throw error;
+        
+        await DB.rpc('reset_productid');
+        
+        await fetchProducts(); // ดึงข้อมูลใหม่เพื่อแสดงรายการที่อัปเดต
+        console.log('ลบสินค้าสำเร็จ!');
+        
+      } catch (e) {
+        setError('ไม่สามารถลบสินค้าได้: ' + e.message);
+        console.error('Error deleting product:', e);
+      }
     }
+  };
+  
+  const openHistory = async(productId)=> {
+    setShowhistory(true);
+    setProductHis(productId);
+  };
+  
+  const closeHis = () => {
+    setShowhistory(false);
   }
-};
-
-const openHistory = async(productId)=> {
-  setShowhistory(true);
-  setProductHis(productId);
-};
-
-const closeHis = () => {
-  setShowhistory(false);
-}
-
-
-
+  
+  
+  
+  if(!open) return null;
   if (loading) return <div className="loading">กำลังโหลดข้อมูล...</div>;
   if (error) return <div className="error">{error}</div>;
-
+    
   return (
-
+  <div>
     <div className="pos-container">
-      <header className="header">
-        <h1>คลังสินค้า</h1>
-      </header>
-      <main className="main-content">
-        <h2>รายการสินค้า</h2>
-        <div className="product-actions">
-          <button className="btn btn-save-add" onClick={openAddModal}>เพิ่มสินค้าใหม่</button>
-          <input
-            type="text"
-            placeholder="ค้นหาสินค้า (SKU, ชื่อ, ราคา, หมวดหมู่)"
-            className="search-input"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+    <header className="header">
+    </header>
+      <div className='Logo'>
+        <img src='src\assets\pic\f111a4d9e98c2f1849285d198126666303e67f65.png'></img><h1>PPJ SPROT</h1>
+      </div>
+    <div className="main-content">
+      <div className="product-actions">
+        <div className="page-header-logo">
+          {/* เราจะใช้ไอคอน faBoxArchive ที่คุณ import มาแล้ว */}
+          <FontAwesomeIcon icon={faBoxArchive} className="header-icon" />
+          <div className="header-text-container">
+            <span className="header-main-text">คลังสินค้า</span>
+            <span className="header-sub-text">หน้าหลัก</span>
+          </div>
         </div>
-        <div className="product-list-container">
-          <table className="product-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>SKU</th>
-                <th>ชื่อสินค้า</th>
-                <th>หมวดหมู่สินค้า</th>
-                <th>ราคา</th>
-                <th>จำนวน</th>
-                <th>เกณฑ์ขั้นต่ำ</th>
-                <th>รายการเพิ่มเติม</th>
+        <div className='bottom'></div>
+        <input
+          type="text"
+          placeholder="🔍 ค้นหาสินค้า (SKU, ชื่อ, ราคา, หมวดหมู่)"
+          className="search-input"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} />
+        <div className='add-new-product'>
+          <button className="btn-save-add" onClick={openAddModal}><FontAwesomeIcon icon={faCartPlus} /></button>
+          <p>เพิ่มสินค้าใหม่</p>
+        </div>
+      </div>
+      <div className="border"></div>
+      <div className="product-list-container">
+        <table className="product-table">
+          <thead>
+            <tr>
+              <th>รูปภาพ</th>
+              <th>SKU</th>
+              <th>ชื่อสินค้า</th>
+              <th>หมวดหมู่สินค้า</th>
+              <th>ราคา</th>
+              <th>จำนวน</th>
+              <th>เกณฑ์ขั้นต่ำ</th>
+              <th>รายการเพิ่มเติม</th>
 
-              </tr>
-            </thead>
-            <tbody>
-              {filteredProducts.map((product) => (
-                <tr key={product.productid}
-                    className={product.initialquantity < product.minimumcriteria ? 'low-stock' : ''}>
-                  <td>{product.productid}</td>
-                  <td>{product.sku}</td>
-                  <td>{product.productname}</td>
-                  <td>{getCategoryName(product.categoryid)}</td> 
-                  <td>{product.price} บาท</td>
-                  <td>{product.initialquantity} ชิ้น</td>
-                  <td>{product.minimumcriteria} ชิ้น</td>
-                  <td>
-                  <div className='more_items_button'>
-                  <button className = "btn_plus_minus" onClick={() => handleUpdateQuantity(product)}>
-                      เพิ่มลดจำนวนสินค้า
-                  </button>
-                  <button className="btn-edit" onClick={() => openEditModal(product)}>
-                      แก้ไขข้อมูลสินค้า
-                  </button>
-                  <button className = "btn_plus_minus" onClick={() => handleDeleteProduct(product.productid)}>
-                      ลบสินค้า
-                  </button>
-                  <button className = "btn_history" onClick={() => openHistory( product.productid)}>
-                      ประวัติ
-                  </button>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredProducts.map((product) => (
+              <tr key={product.productid}
+              className={product.initialquantity < product.minimumcriteria ? 'low-stock' : ''} 
+              title={product.initialquantity < product.minimumcriteria ? 'เหลือน้อยแล้ว!' : ''}>
+                <td>
+                  <div className="product-image-cell">
+                      <img src={product.image_url} alt={`รูปภาพสินค้า ${product.productname}`} className="product-thumbnail" />
                   </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </main>
-      <Modal
-        isVisible={isModalOpen}
-        product={selectedProduct}
-        onClose={closeModal}
-        onSave={handleSaveQuantity}
-      />
-      <EditProductModal
-        isVisible={isEditModalOpen}
-        product={productToEdit}
-        categories={categories}
-        onClose={closeEditModal}
-        onSave={handleEditSave}
-      />
-      <AddProductModal
-        isVisible={isAddModalOpen}
-        categories={categories}
-        onClose={closeAddModal}
-        onSave={handleAddSave}
-      />
+                </td>
+                <td>{product.sku}</td>
+                <td>{product.productname}</td>
+                <td>{getCategoryName(product.categoryid)}</td>
+                <td>{product.price} บาท</td>
+                <td>{product.initialquantity} ชิ้น</td>
+                <td>{product.minimumcriteria} ชิ้น</td>
+                <td>
+                  <div className='more_items_button'>
+                      <button className="btn btn_plus_minus" onClick={() => handleUpdateQuantity(product)} title='ทำรายการ เพิ่ม/ถอน'>
+                        <FontAwesomeIcon icon={faArrowsUpDown} />
+                      </button>
+                    <button className="btn btn_history" onClick={() => openHistory(product.productid)} title='ประวัติการทำรายการของสินค้าชิ้นนี้'>
+                      <FontAwesomeIcon icon={faFileArrowDown} />
+                    </button>
+                    <button className="btn btn-edit" onClick={() => openEditModal(product)} title='แก้ไขรายละเอียด' >
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </button>
+                    <button className="btn btn_plus_minus" onClick={() => handleDeleteProduct(product.productid)} title='ลบสินค้าจากคลัง'>
+                      <FontAwesomeIcon icon={faTrashCan} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
 
-      <ProductLog popupstate={Showhistory} 
-      productId={ProducHis}
-      closeHis={closeHis}
-      /> 
+))}
 
+          </tbody>
+        </table>
+
+      </div>
     </div>
+    <Modal
+      isVisible={isModalOpen}
+      product={selectedProduct}
+      onClose={closeModal}
+      onSave={handleSaveQuantity} />
+    <EditProductModal
+      isVisible={isEditModalOpen}
+      product={productToEdit}
+      categories={categories}
+      onClose={closeEditModal}
+      onSave={handleEditSave} />
+    <AddProductModal
+      isVisible={isAddModalOpen}
+      categories={categories}
+      onClose={closeAddModal}
+      onSave={handleAddSave} />
+
+    <ProductLog popupstate={Showhistory}
+      productId={ProducHis}
+      closeHis={closeHis} />
+  </div>
+</div>
+  
   );
 }
 
