@@ -1,0 +1,111 @@
+.contentholder {
+  width: 90%;
+  margin: 20px auto;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  color: #333;
+      background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid black;
+
+}
+/* //////////////////////////////////////////// */
+
+.pageHead {
+    margin: 20px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* spread left, center, right */
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.PageLogo {
+  font-size: 18px;
+  font-weight: bold;
+  flex: 0 0 auto; /* stays left */
+}
+
+.searchbar {
+  flex: 1; /* takes available space */
+  max-width: 400px;
+  margin: 0 auto; /* centers it */
+  padding: 8px 12px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.pageHead select {
+  flex: 0 0 auto; /* stays right */
+  padding: 8px 12px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.HeaderLogo {
+    align-items: flex-start;
+    font-size: 50px; 
+    color: #2c3e50; 
+}
+/* //////////////////////////////////////////////////// */
+.maincontent {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-top: 2px solid black;
+}
+
+.LogTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.LogTable thead {
+    border-top:1px solid #c3c3c3;
+  background: #f4f6f8;
+}
+
+.LogTable th {
+  text-align: center;
+  padding: 12px 10px;
+  font-weight: 600;
+  font-size: 14px;
+  border-right: 2px solid #c3c3c3;
+  border-bottom: 2px solid #c3c3c3 ;
+}
+.LogTable thead th:last-child {
+    border-right: none;
+}
+
+.LogTable td {
+  padding: 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.LogTable tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.LogTable tbody tr:hover {
+  background: #f1f7ff;
+}
+.LogTable tbody td {
+      border-right: 2px solid #c3c3c3;
+      text-align: center;
+}
+
+.LogTable tbody td:last-child{
+    border-right: none;
+}
