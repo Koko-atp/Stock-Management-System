@@ -119,29 +119,7 @@ function MPL({open}){
           
           if (updateError) throw updateError;
           
-          // ประเภทการทำรายการ (1 = รับเข้า, 2 = เบิกออก)
-          const transactionTypeId = quantity > 0 ? 1 : 2;
-          
-          // Insert ข้อมูลลง stocktransaction
 
-
-          ///////////////////////////////////////////////////////////////////////////
-          const { error: logError } = await DB
-          .from('stocktransaction')
-          .insert({
-            transactiontypeid: transactionTypeId,
-            productid: productId,
-            userid: 1, // ← ใส่ userid เป็น 1 ไว้ชั่วคราว
-            transactiondate: new Date().toISOString().split('T')[0],
-            quantity: Math.abs(quantity),
-            note: transactionTypeId === 1 
-            ? 'เพิ่มจำนวนเข้าคลัง' 
-            : 'เบิก/ลดจำนวนสินค้าออกจากคลัง'
-          });
-          //////////////////////////////////////////////////////////
-
-          if (logError) throw logError;
-          
           // อัปเดต State
           setProducts(products.map(p =>
             p.productid === productId ? { ...p, initialquantity: newQuantity } : p

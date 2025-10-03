@@ -32,9 +32,9 @@ const ChangePage = (p) => {
       <>
         <nav className="bottom-nav">
 
-            <div className={onMainP === true? 'nav-item active' : 'nav-item'}>
-              <FontAwesomeIcon icon={faBoxArchive} className="nav-icon" 
-                onClick={() => ChangePage('MainP')}/>
+            <div className={onMainP === true? 'nav-item active' : 'nav-item'}
+                onClick={() => ChangePage('MainP')}>
+                <FontAwesomeIcon icon={faBoxArchive} className="nav-icon" />
               <span className="nav-label">คลังสินค้า</span>
             </div>
 
