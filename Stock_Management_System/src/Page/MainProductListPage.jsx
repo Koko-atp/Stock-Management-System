@@ -51,8 +51,8 @@ function MPL({open}){
   };
   
   useEffect(() => {
+
     fetchProducts();
-    
     const fetchCategories = async () => {
       try {
         const { data, error } = await DB
@@ -67,9 +67,9 @@ function MPL({open}){
         console.error("Error fetching categories:", e);
       }
     };
-    
     fetchCategories();
-  }, [categories , open]); 
+  
+  }, [open]); 
   
   //ฟังก์ชัน Search หาสินค้า 
   useEffect(() => {
@@ -119,25 +119,7 @@ function MPL({open}){
           
           if (updateError) throw updateError;
           
-          // ประเภทการทำรายการ (1 = รับเข้า, 2 = เบิกออก)
-          const transactionTypeId = quantity > 0 ? 1 : 2;
-          
-          // Insert ข้อมูลลง stocktransaction
-          const { error: logError } = await DB
-          .from('stocktransaction')
-          .insert({
-            transactiontypeid: transactionTypeId,
-            productid: productId,
-            userid: 1, // ← ใส่ userid เป็น 1 ไว้ชั่วคราว
-            transactiondate: new Date().toISOString().split('T')[0],
-            quantity: Math.abs(quantity),
-            note: transactionTypeId === 1 
-            ? 'เพิ่มจำนวนเข้าคลัง' 
-            : 'เบิก/ลดจำนวนสินค้าออกจากคลัง'
-          });
-          
-          if (logError) throw logError;
-          
+
           // อัปเดต State
           setProducts(products.map(p =>
             p.productid === productId ? { ...p, initialquantity: newQuantity } : p
@@ -263,15 +245,12 @@ function MPL({open}){
   return (
   <div>
     <div className="pos-container">
-    <header className="header">
-    </header>
-      <div className='Logo'>
-        <img src='src\assets\pic\f111a4d9e98c2f1849285d198126666303e67f65.png'></img><h1>PPJ SPROT</h1>
-      </div>
+   
     <div className="main-content">
+
       <div className="product-actions">
         <div className="page-header-logo">
-          {/* เราจะใช้ไอคอน faBoxArchive ที่คุณ import มาแล้ว */}
+  
           <FontAwesomeIcon icon={faBoxArchive} className="header-icon" />
           <div className="header-text-container">
             <span className="header-main-text">คลังสินค้า</span>
@@ -286,10 +265,10 @@ function MPL({open}){
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} />
         <div className='add-new-product'>
-          <button className="btn-save-add" onClick={openAddModal}><FontAwesomeIcon icon={faCartPlus} /></button>
-          <p>เพิ่มสินค้าใหม่</p>
+          <button className="btn-save-add" onClick={openAddModal}><FontAwesomeIcon icon={faCartPlus} /><p>เพิ่มสินค้าใหม่</p></button>
         </div>
       </div>
+
       <div className="border"></div>
       <div className="product-list-container">
         <table className="product-table">

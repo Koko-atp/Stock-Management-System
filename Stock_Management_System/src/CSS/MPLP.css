@@ -19,11 +19,6 @@ body {
     
 }
 
-.header {
-    text-align: left; /* เปลี่ยนเป็นชิดซ้ายตามรูป */
-    margin-bottom: 30px;
-    
-}
 
 h1 {
     color: #1a2a47; 
@@ -31,6 +26,7 @@ h1 {
     font-weight: 600;
 }
 .main-content {
+    margin-top: 30px;
     background-color: #ffffff;
     padding: 30px;
     border-radius: 12px;
@@ -45,7 +41,7 @@ h1 {
     border-bottom: 2px solid #ddd;
 }
 .Logo {
-    position: absolute;
+    position: fixed;
     left: 100px;
     top: -30px;
 
@@ -138,6 +134,7 @@ h1 {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s;
+    margin-top: 22px;
 }
 .btn-save-add:hover {
     background-color: #0057b300;
@@ -148,8 +145,8 @@ h1 {
 }
 
 .add-new-product p {
-    font-size: larger;
     font-weight:bold;
+    margin-top: 0;
 }
 
 

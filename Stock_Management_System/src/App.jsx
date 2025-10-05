@@ -2,6 +2,7 @@ import MPL from "./Page/MainProductListPage";
 import Pfooter from "./cpn/Pagefooter";
 import TranPage from "./Page/TranLogPage";
 import { useState } from "react";
+import Hprofile from './cpn/ProfileLogo'
 
 function App() {
     const [MPLP , setMPLP] = useState(true);
@@ -20,6 +21,7 @@ function App() {
 
  return(
   <> 
+   <Hprofile/>
     <MPL open={MPLP}/>
     <TranPage visible={TransacLog}/>
 

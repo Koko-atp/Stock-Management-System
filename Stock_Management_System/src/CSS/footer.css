@@ -28,7 +28,6 @@
     display: flex;
     flex-direction: column; /* ไอคอนอยู่ด้านบน ข้อความอยู่ด้านล่าง */
     align-items: center;
-    cursor: pointer;
     padding: 0 10px;
     transition: color 0.2s;
     flex-grow: 1; /* ให้แต่ละรายการมีพื้นที่เท่ากัน */
@@ -36,6 +35,7 @@
 
 /* สไตล์ไอคอน */
 .nav-icon {
+    cursor: pointer;
     font-size: 1.5rem;
     margin-bottom: 5px;
     color: #a0a0a0; /* สีเทาอ่อนสำหรับไอคอนที่ไม่ได้เลือก */
