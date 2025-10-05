@@ -245,8 +245,6 @@ function MPL({open}){
   return (
   <div>
     <div className="pos-container">
-    <header className="header">
-    </header>
    
     <div className="main-content">
 

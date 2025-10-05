@@ -19,11 +19,6 @@ body {
     
 }
 
-.header {
-    text-align: left; /* เปลี่ยนเป็นชิดซ้ายตามรูป */
-    margin-bottom: 30px;
-    
-}
 
 h1 {
     color: #1a2a47; 
@@ -31,6 +26,7 @@ h1 {
     font-weight: 600;
 }
 .main-content {
+    margin-top: 30px;
     background-color: #ffffff;
     padding: 30px;
     border-radius: 12px;
