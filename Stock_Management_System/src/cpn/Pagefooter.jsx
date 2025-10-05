@@ -9,8 +9,6 @@ import'../CSS/footer.css'
 import { useState } from 'react';
 
 function Pfooter({MainP , TransacP}) {
-
-function Pfooter({MainP , TransacP}) {
 const [onMainP , setOnmainp] = useState(true);
 const [onTransacP , setOnTransac] = useState(false);
 
