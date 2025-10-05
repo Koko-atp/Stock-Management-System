@@ -8,6 +8,7 @@ import {
 import'../CSS/footer.css'
 import { useState } from 'react';
 
+function Pfooter({MainP , TransacP}) {
 
 function Pfooter({MainP , TransacP}) {
 const [onMainP , setOnmainp] = useState(true);
@@ -53,7 +54,6 @@ const ChangePage = (p) => {
           <FontAwesomeIcon icon={faGear} className="nav-icon" />
           <span className="nav-label">การตั้งค่า</span>
         </div>
-
         <div className="nav-item">
           <img src="src\assets\pic\f111a4d9e98c2f1849285d198126666303e67f65.png" alt="Profile" className="nav-profile-img" />
           <span className="nav-label">โปรไฟล์</span>
