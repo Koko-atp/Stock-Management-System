@@ -65,9 +65,8 @@ function TranPage ({visible}) {
         fetchLog();
     }
     
-    if(!visible) return null;
     if (loading) return <div className="loading">กำลังโหลดข้อมูล...</div>;
-    return(
+    if(visible) return(
         <div className="pos-container">
             <div className="main-content" >
 

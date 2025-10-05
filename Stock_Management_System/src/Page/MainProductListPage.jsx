@@ -238,11 +238,10 @@ function MPL({open}){
   
   
   
-  if(!open) return null;
   if (loading) return <div className="loading">กำลังโหลดข้อมูล...</div>;
   if (error) return <div className="error">{error}</div>;
     
-  return (
+  if(open) return (
   <div>
     <div className="pos-container">
    

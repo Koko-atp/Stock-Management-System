@@ -8,9 +8,10 @@ import {
 import'../CSS/footer.css'
 import { useState } from 'react';
 
-function Pfooter({MainP , TransacP}) {
+function Pfooter({MainP , TransacP , NoticP}) {
 const [onMainP , setOnmainp] = useState(true);
 const [onTransacP , setOnTransac] = useState(false);
+const [onNotic , setOnnotic] = useState(false);
 
 
 const ChangePage = (p) => {
@@ -18,10 +19,18 @@ const ChangePage = (p) => {
     MainP()
     setOnmainp(true);
     setOnTransac(false);
+    setOnnotic(false);
   }
   else if (p === 'TransacP'){
     TransacP()
     setOnTransac(true);
+    setOnmainp(false);
+    setOnnotic(false);
+  }
+  else if (p === 'NoticP'){
+    NoticP()
+    setOnnotic(true);
+    setOnTransac(false);
     setOnmainp(false);
   }
 
@@ -43,7 +52,8 @@ const ChangePage = (p) => {
           <span className="nav-label">ประวัติรวม</span>
         </div>
 
-        <div className="nav-item">
+        <div className={onNotic === true? 'nav-item active' : 'nav-item'}
+                  onClick={() =>ChangePage('NoticP')} >
           <FontAwesomeIcon icon={faBell} className="nav-icon" />
           <span className="nav-label">การแจ้งเตือน</span>
         </div>
