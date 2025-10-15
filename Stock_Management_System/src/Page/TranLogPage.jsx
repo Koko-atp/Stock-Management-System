@@ -62,9 +62,10 @@ function TranPage ({visible}) {
         setschoice(e);
         setload(true)
     }
-    
-    if (loading) return <div className="loading">กำลังโหลดข้อมูล...</div>;
-    if(visible) return(
+    if(visible) 
+        if (loading) return <div className="loading">กำลังโหลดข้อมูล...</div>;
+    else
+        return(
         <div className="pos-container">
             <div className="main-content" >
 
@@ -126,5 +127,6 @@ function TranPage ({visible}) {
             </div>
         </div>
     );
+    else return null
 }
 export default TranPage ;

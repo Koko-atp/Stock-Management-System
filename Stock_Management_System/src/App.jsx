@@ -14,11 +14,13 @@ function App() {
     const openMain= () => {
         setMPLP(true);
         setTransacLog(false);
+        setNotic(false)
     }
 
     const openTransac = () => {
-      setMPLP(false);
       setTransacLog(true);
+      setMPLP(false);
+      setNotic(false)
     }
 
     const openNotification = () => {
@@ -32,6 +34,7 @@ function App() {
    <Hprofile/>
     <MPL open={MPLP}/>
     <TranPage visible={TransacLog}/>
+    <Noticpage visible={Notic} />
 
     <Pfooter 
     MainP={openMain} 
