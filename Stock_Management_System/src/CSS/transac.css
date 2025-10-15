@@ -11,12 +11,12 @@
     z-index: 1010;
 }
 .LogContent{
+    width: fit-content;
     position: relative;
     background: white;
     padding: 2rem;
     border-radius: 8px;
-    width: 90%;
-    max-width: 525px;
+    max-width: 75%;
     max-height: 50%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -88,11 +88,12 @@
     font-size: 20px;
     cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: red;
 
 }
 
 .closebutton:hover {
-  background-color: red;
+  background-color: rgb(255, 124, 124);
   color: white; /
 }
 

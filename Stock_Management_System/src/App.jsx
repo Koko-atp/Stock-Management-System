@@ -32,7 +32,6 @@ function App() {
    <Hprofile/>
     <MPL open={MPLP}/>
     <TranPage visible={TransacLog}/>
-    <Noticpage visible={Notic}/>
 
     <Pfooter 
     MainP={openMain} 

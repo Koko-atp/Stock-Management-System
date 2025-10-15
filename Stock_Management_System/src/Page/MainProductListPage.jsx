@@ -48,28 +48,25 @@ function MPL({open}){
     } finally {
       setLoading(false);
     }
+    try {
+      const { data, error } = await DB
+      .from('category')
+      .select('*')
+      .order('categoryid', { ascending: true });
+      
+      if (error) throw error;
+      
+      setCategories(data);
+    } catch (e) {
+      console.error("Error fetching categories:", e);
+    }
   };
   
   useEffect(() => {
-
-    fetchProducts();
-    const fetchCategories = async () => {
-      try {
-        const { data, error } = await DB
-        .from('category')
-        .select('*')
-        .order('categoryid', { ascending: true });
-        
-        if (error) throw error;
-        
-        setCategories(data);
-      } catch (e) {
-        console.error("Error fetching categories:", e);
-      }
-    };
-    fetchCategories();
-  
-  }, [open]); 
+    if(open){
+      fetchProducts();
+    }
+  }, [open , loading]);
   
   //ฟังก์ชัน Search หาสินค้า 
   useEffect(() => {
@@ -102,31 +99,17 @@ function MPL({open}){
   
   
    //ฟังก์ชันเพื่อจัดการการบันทึกจำนวนสินค้า
-   const handleSaveQuantity = async (productId, quantity) => {
+   const handleSaveQuantity = async (newtransaction) => {
      try {
-       const productToUpdate = products.find(p => p.productid === productId);
-       if (!productToUpdate) throw new Error("ไม่พบสินค้า");
-       
-       const newQuantity = productToUpdate.initialquantity + quantity;
-       
-       if (newQuantity < 0) {
-         alert("จำนวนไม่ถูกต้อง");
-        } else {
           const { error: updateError } = await DB
-          .from('product')
-          .update({ initialquantity: newQuantity })
-          .eq('productid', productId);
+          .from('stocktransaction')
+          .insert(newtransaction)
           
           if (updateError) throw updateError;
-          
-
           // อัปเดต State
-          setProducts(products.map(p =>
-            p.productid === productId ? { ...p, initialquantity: newQuantity } : p
-          ));
-          
+          setLoading(true)
           console.log('✅ อัปเดตสินค้าและบันทึก Log เรียบร้อย');
-      }
+
     } catch (e) {
       setError('ไม่สามารถอัปเดตจำนวนสินค้าได้: ' + e.message);
       console.error('Error updating quantity:', e);
@@ -311,7 +294,7 @@ function MPL({open}){
                     <button className="btn btn-edit" onClick={() => openEditModal(product)} title='แก้ไขรายละเอียด' >
                       <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
-                    <button className="btn btn_plus_minus" onClick={() => handleDeleteProduct(product.productid)} title='ลบสินค้าจากคลัง'>
+                    <button className="btn btn_delete" onClick={() => handleDeleteProduct(product.productid)} title='ลบสินค้าจากคลัง'>
                       <FontAwesomeIcon icon={faTrashCan} />
                     </button>
                   </div>

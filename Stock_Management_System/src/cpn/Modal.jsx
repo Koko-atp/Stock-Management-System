@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Modal = ({ isVisible, product, onClose, onSave }) => {
   // สร้าง State สำหรับประเภทการทำรายการ ('add' หรือ 'subtract') และจำนวนสินค้า
   const [transactionType, setTransactionType] = useState('add');
   const [quantity, setQuantity] = useState(0);
+  const [transac_note , setnote] = useState()
+  const [tran_id , settran_id] = useState()
 
-  if (!isVisible) return null;
-
+  
   const handleSave = () => {
     // ตรวจสอบว่าจำนวนที่กรอกมากกว่า 0 หรือไม่
     if (quantity <= 0) {
@@ -14,13 +15,37 @@ const Modal = ({ isVisible, product, onClose, onSave }) => {
       return;
     }
     
-    // ส่งค่า transactionType และ quantity ไปที่คอมโพเนนต์หลัก
-    // ตัวอย่าง: ถ้าเลือก 'subtract' และกรอก 5, จะส่งค่าเป็น -5
     const finalQuantity = transactionType === 'add' ? quantity : -quantity;
+    const zoned = new Date()
+    zoned.setHours((zoned.getHours() + 7))
+    const trandate = zoned.toISOString().split('.')[0];
     
-    onSave(product.productid, finalQuantity);
+    if (product.initialquantity + finalQuantity < 0 ){
+      alert("จำนวนไม่ถูกต้อง");
+    }else{
+      onSave({
+        transactiontypeid: tran_id,
+        productid: product.productid,
+        userid: 1,
+        transactiondate: trandate,
+        quantity: quantity ,
+        note: transac_note
+      });
+    }
   };
+  
+  useEffect(() =>{ 
+    if (transactionType === 'add'){
+      setnote('เพิ่ม สินค้าเข้าคลัง')
+      settran_id(1)
+    }else{
+      setnote('เบิก/ลด สินค้าออกจากคลัง')
+      settran_id(2)
+    }
+  } ,[ transactionType])
 
+
+  if (!isVisible) return null;
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -45,6 +70,9 @@ const Modal = ({ isVisible, product, onClose, onSave }) => {
             min="0" // กำหนดให้จำนวนต้องมากกว่าหรือเท่ากับ 0
           />
         </div>
+
+        <input placeholder={transac_note}
+        onChange={(e) => setnote(e.target.value)}></input>
 
         <div className="modal-actions">
           <button className="btn btn-save" onClick={handleSave}>บันทึก</button>

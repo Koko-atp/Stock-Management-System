@@ -209,23 +209,34 @@ h1 {
     border: 1px solid #ced4da;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 1.3rem;
     transition: background-color 0.2s ease, border-color 0.2s ease;
     background-color: #f8f9fa00;
     color: #333;
 }
 
 /* ปุ่ม เพิ่มลดจำนวน (btn_plus_minus) และ ประวัติ (btn_history) */
-.btn_plus_minus, .btn_history {
+.btn_plus_minus{
     border: none;
-    background-color: #e9ecef;
+    background-color: #00ff2a00;
     border-color: #ced4da;
 }
-.btn_plus_minus:hover, .btn_history:hover {
+
+.btn_history {
     border: none;
-    background-color: #dee2e600;
+    background-color: #c0c1c200;
+    border-color: #ced4da;
 }
 
+.btn_delete {
+    border: none; 
+    background-color: rgba(255, 0, 0, 0);
+}
+
+.btn_delete:hover, .btn_plus_minus:hover, .btn_history:hover {
+    border: none;
+    background-color: #bcbcbc;
+}
 /* ปุ่มแก้ไขข้อมูลสินค้า (btn-edit) */
 .btn-edit {
     border: none;

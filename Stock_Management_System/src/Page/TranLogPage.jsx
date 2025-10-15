@@ -48,12 +48,10 @@ function TranPage ({visible}) {
         if(visible) {
             fetchLog()
         }
-    },[visible , loading]);
-    
+    },[visible, loading]);
     /////////////////////////////////////////////////////////////
     
     const veiwby = (e) => {
-        setload(true);
         if (e === 'minquantity') {
             setsort('quantity')
             setasc(true)
@@ -62,7 +60,7 @@ function TranPage ({visible}) {
             setasc(false)
         };
         setschoice(e);
-        fetchLog();
+        setload(true)
     }
     
     if (loading) return <div className="loading">กำลังโหลดข้อมูล...</div>;
