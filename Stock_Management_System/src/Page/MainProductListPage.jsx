@@ -23,7 +23,7 @@ function MPL({open}){
   const [categories, setCategories] = useState([]); // State สำหรับเก็บข้อมูลหมวดหมู่
   const [searchTerm, setSearchTerm] = useState(''); // State สำหรับเก็บข้อมูลแถบค้นหา
   const [filteredProducts, setFilteredProducts] = useState([]); // State สำหรับเก็บข้อมูลสินค้าที่ถูกกรอง
-  const [viewby , setview] = useState(0)
+  const [viewby , setview] = useState('all')
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
