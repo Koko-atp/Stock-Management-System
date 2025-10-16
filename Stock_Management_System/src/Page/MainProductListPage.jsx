@@ -301,7 +301,7 @@ function MPL({open}){
           <tbody>
             {filteredProducts.map((product) => (
               <tr key={product.productid}
-              className={product.initialquantity < product.minimumcriteria ? 'low-stock' : ''} 
+              className={product.initialquantity <= product.minimumcriteria ? 'low-stock' : ''} 
               title={product.initialquantity < product.minimumcriteria ? 'เหลือน้อยแล้ว!' : ''}>
                 <td>
                   <div className="product-image-cell">
