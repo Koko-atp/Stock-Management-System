@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import DB from "../assets/DB";
+import '../CSS/NoticPage.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 
 
 function Noticpage({visible}) {
@@ -33,30 +36,35 @@ function Noticpage({visible}) {
     <div className="pos-container">
         
     <div className="main-content">
-        <div className="page-header-logo">
+        <div className="Notic-page-header-logo">
+            <div className="Notic-title">
+
+        <FontAwesomeIcon icon={faBell}  className="header-icon" />
+          <div className="Notic-header-text-container">
+            <span className="header-main-text">การแจ้งเตือน</span>
+            </div>
+
+            </div>
       </div>
 
       <div className="border"></div>
       <div className="product-list-container"></div>
-            <table>
+            <table className="Notic_table">
                 <tbody>
                         {NoticLog.map((NLog) => (    
-                            <tr key={NoticLog.productid}>
+                    <tr key={NoticLog.productid}>
                         <td>
-                        <div className="" >
+                        <div className="Notic_box" >
                             <span>{NLog.notificationdate.replace('T' ,' : ')}</span>
-                            <div>{NLog.product.productname} {NLog.notificationmessage}</div>
+                            <div>{NLog.product.productname} : {NLog.notificationmessage}</div>
                         </div>
                         </td>
                     </tr>
                     ))}
                 </tbody>
             </table>
-
     </div>
     </div>
 </div>
-    );
-}
-}
+    );}}
 export default Noticpage;

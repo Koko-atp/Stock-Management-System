@@ -13,6 +13,7 @@ import {
     faTrashCan, 
     faCartPlus,  
     faBoxArchive, // ไอคอนสำหรับคลังสินค้า (แทนกล่อง)
+    faList
 
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,6 +23,7 @@ function MPL({open}){
   const [categories, setCategories] = useState([]); // State สำหรับเก็บข้อมูลหมวดหมู่
   const [searchTerm, setSearchTerm] = useState(''); // State สำหรับเก็บข้อมูลแถบค้นหา
   const [filteredProducts, setFilteredProducts] = useState([]); // State สำหรับเก็บข้อมูลสินค้าที่ถูกกรอง
+  const [viewby , setview] = useState(0)
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,13 +34,16 @@ function MPL({open}){
   const [isAddModalOpen, setIsAddModalOpen] = useState(false); 
   const[Showhistory , setShowhistory] = useState(false);
   const[ProducHis , setProductHis] = useState([]);
+
   
   const fetchProducts = async () => {
     try {
-      const { data, error } = await DB
-      .from('product')
+      let unsortD = DB.from('product')
       .select('*')
       .order('productid', { ascending: true });
+      if(viewby !== 'all')  {unsortD =  unsortD.eq('categoryid' , viewby)}
+      
+      const { data, error } = await unsortD
       
       if (error) throw error;
       setProducts(data);
@@ -67,6 +72,8 @@ function MPL({open}){
       fetchProducts();
     }
   }, [open , loading]);
+
+
   
   //ฟังก์ชัน Search หาสินค้า 
   useEffect(() => {
@@ -83,6 +90,12 @@ function MPL({open}){
     const category = categories.find(cat => cat.categoryid === categoryid);
     return category ? category.categoryname : 'ไม่พบหมวดหมู่';
   };
+
+
+  const setviewcat = (e) =>{
+    setview(e)
+  setLoading(true)
+  }
   
   
   // ฟังก์ชันสำหรับเปิด Modal อัปเดตจำนวนสินค้า
@@ -248,10 +261,26 @@ function MPL({open}){
           className="search-input"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} />
+
+          <div className='Right-action'>
+
         <div className='add-new-product'>
           <button className="btn-save-add" onClick={openAddModal}><FontAwesomeIcon icon={faCartPlus} /><p>เพิ่มสินค้าใหม่</p></button>
         </div>
+            <div className="sort-by">
+                <div className="list-button">
+                <FontAwesomeIcon icon={faList} />
+            <select className="sort-option" value={viewby} onChange={(e) => setviewcat(e.target.value)}>
+              <option value='all' > ทั้งหมด </option>
+                {categories.map((cat) => 
+                <option  key={cat.categoryid} value={cat.categoryid}>{cat.categoryname} </option>
+                )}
+            </select>
+                </div>
+                </div>
       </div>
+          
+    </div>
 
       <div className="border"></div>
       <div className="product-list-container">
@@ -301,10 +330,7 @@ function MPL({open}){
                     </button>
                   </div>
                 </td>
-              </tr>
-
-))}
-
+              </tr>))}
           </tbody>
         </table>
 

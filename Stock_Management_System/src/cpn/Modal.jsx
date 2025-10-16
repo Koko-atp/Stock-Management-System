@@ -54,7 +54,7 @@ const Modal = ({ isVisible, product, onClose, onSave }) => {
         
         <div className="modal-input-group">
           <div className="custom-select-wrapper">
-            {/* เพิ่ม dropdown สำหรับเลือกประเภท */}
+            <span>ประเภท</span>
             <select
               value={transactionType}
               onChange={(e) => setTransactionType(e.target.value)}
@@ -63,17 +63,27 @@ const Modal = ({ isVisible, product, onClose, onSave }) => {
               <option value="subtract">ลดจำนวนสินค้า (-)</option>
             </select>
           </div>
+
+          <div className='quan-input'>
+            <span>หมายเหตุ</span>
           <input
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(parseInt(e.target.value))}
-            min="0" // กำหนดให้จำนวนต้องมากกว่าหรือเท่ากับ 0
+          className='quan-input'
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(parseInt(e.target.value))}
+          min="0" // กำหนดให้จำนวนต้องมากกว่าหรือเท่ากับ 0
           />
-        </div>
+          </div>
 
-        <input placeholder={transac_note}
-        onChange={(e) => setnote(e.target.value)}></input>
+          
+          <div className='Modal-note'>
+          <span>หมายเหตุ</span>
+        <input
+         placeholder={transac_note}
+         onChange={(e) => setnote(e.target.value)}></input>
+         </div>
 
+         </div>
         <div className="modal-actions">
           <button className="btn btn-save" onClick={handleSave}>บันทึก</button>
           <button className="btn btn-cancel" onClick={onClose}>ยกเลิก</button>

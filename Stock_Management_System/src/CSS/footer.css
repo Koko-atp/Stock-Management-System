@@ -21,10 +21,12 @@
     
     /* จำกัดความกว้างให้ตรงกลางจอถ้าต้องการ */
     max-width: auto; 
-    margin: 0 auto; 
+    margin: 0 auto;
+    margin-left: 10px;
 }
 
 .nav-item {
+    width: 75px;
     display: flex;
     flex-direction: column; /* ไอคอนอยู่ด้านบน ข้อความอยู่ด้านล่าง */
     align-items: center;

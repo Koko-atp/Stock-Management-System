@@ -86,13 +86,14 @@ function TranPage ({visible}) {
                 
                 <div className="sort-by">
                     <p>จัดเรียงตาม</p>
-
+                    <div className="list-button">
                     <FontAwesomeIcon icon={faList} />
                 <select className="sort-option" value={sortchoice} onChange={(e) => veiwby(e.target.value) }>
                     <option value='transactiondate' > วันที่ล่าสุด </option>
                     <option value='quantity' > จำนวนชิ้นมากสุด </option>
                     <option value='minquantity'> จำนวนชิ้นน้อยสุด </option>
                 </select>
+                    </div>
                 </div>
 
             </div>
