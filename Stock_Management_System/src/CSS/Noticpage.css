@@ -1,0 +1,28 @@
+.Notic_box{
+    background-color: rgba(242, 60, 60, 0.411);
+    width: 98%;
+    border-radius: 8px;
+    padding: 10px;
+    padding-left: 20px;
+    box-shadow: 10cm;
+}
+.Notic_box span{
+    display:inline-block;
+    margin-bottom: 5px;
+}
+
+.Notic_table{
+    width: 100%;
+}
+
+.Notic-pag-header-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Notic-title{
+    padding: 50px;
+      display: flex;
+      justify-content: center;
+      margin: auto;
+}

@@ -1,0 +1,100 @@
+.productlog_Popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1010;
+}
+.LogContent{
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 75%;
+    max-height: 75%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.TLog-Table{
+    border: 1px solid rgb(126, 121, 121);
+    border-radius: 8px;
+    max-height: 420px;
+    overflow-y: auto;
+
+}
+.TLog-Table table {
+    padding: 10px;
+    justify-content: left;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.TLog-Table thead th {
+    padding: 5px;
+    border-bottom: 1px  solid rgb(126, 121, 121);
+    text-align: center;
+}
+
+.TableTitle {
+    font-size: 1.5rem;
+    padding: 20px;
+}
+
+.TLog-Table tbody td{
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px ;
+    text-align:center;
+}
+
+.TLog-Table::-webkit-scrollbar {
+    width: 5px;
+    max-height: 40%;
+}
+
+.TLog-Table::-webkit-scrollbar-track {
+    background: none;
+    border-radius: 1px;
+}
+
+.TLog-Table::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+  border: 2px solid none;
+}
+
+.TLog-Table::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+
+
+
+.closebutton {
+    position: absolute;
+    top: 10px ;
+    right:10px;
+    border: none;
+    width: 10%;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: red;
+
+}
+
+.closebutton:hover {
+  background-color: rgb(255, 124, 124);
+  color: white; /
+}
+

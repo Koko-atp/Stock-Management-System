@@ -1,0 +1,563 @@
+/* ======================================= */
+/* 1. LAYOUT & TYPOGRAPHY (อ้างอิงจาก App.jsx) */
+/* ======================================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: rgba(255, 255, 239, 1);
+    color: #333;
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+  overflow-y: scroll;
+
+}
+body::-webkit-scrollbar {
+    width: 10px;
+    max-height: 40%;
+}
+
+body::-webkit-scrollbar-track {
+    background: none;
+    border-radius: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #9e9e9e;
+  border-radius: 4px;
+  border:none;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #313131;
+}
+
+
+
+.pos-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 80px;
+    max-height: max-content;
+    min-width: min-content;
+    
+}
+
+
+h1 {
+    color: #1a2a47; 
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+.main-content {
+    margin-top: 30px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid black;
+
+}
+.border{
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+}
+.Logo {
+    position: fixed;
+    left: 100px;
+    top: -30px;
+
+
+    display: flex;
+
+    width: 300px;
+    height: 90px;
+    background-color: white;
+    padding: 10px;
+    padding-top: 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.5)
+}
+.Logo img{
+    height: 50px;
+    margin-left:15px;
+    margin-right: 15px;
+    margin-top: 30px;
+}
+.page-header-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    margin-left: 90px;
+}
+
+.header-icon {
+    align-items: flex-start;
+    font-size: 50px; 
+    color: #2c3e50; 
+}
+
+.header-text-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-main-text {
+    font-size: 36px; 
+    font-weight: 300; 
+    color: #000000; 
+    line-height: 1.2;
+}
+
+
+.header-sub-text {
+    font-size: 24px; 
+    color: #7f8c8d; 
+    text-align: center;
+}
+
+/* ======================================= */
+/* 2. SEARCH & HEADER ACTIONS (ตรงตามรูป) */
+/* ======================================= */
+.Right-action {
+    display: flex;
+    flex-direction: column;    
+}
+
+
+.product-actions {
+    display: flex;
+    justify-content: space-between; /* แยกปุ่มกับช่องค้นหา */
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 40px;
+    gap: 20px;
+}
+
+.search-input {
+    flex-grow: 1; /* ให้ช่องค้นหายาวเต็มพื้นที่ */
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 15px;
+    font-size: 1rem;
+    background-color: #f8f9fa; /* สีพื้นหลังอ่อนๆ ในช่องค้นหา */
+    max-width: 500px; /* จำกัดความกว้างช่องค้นหาตามรูป */
+}
+
+/* กลุ่มปุ่ม (เพิ่มสินค้าใหม่/จัดการหมวดหมู่) */
+.add-actions-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* หากคุณใช้แค่ปุ่มเพิ่มสินค้าใหม่ปุ่มเดียว */
+.btn-save-add { 
+    background-color: #007bff00; 
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    font-size: 30px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 22px;
+}
+.btn-save-add:hover {
+    background-color: #0057b300;
+}
+
+.add-new-product{
+    margin-top: 0%;
+    display: flex;
+}
+.add-new-product button{
+    display: flex;
+}
+
+.add-new-product p {
+    font-weight:bold;
+    margin-top: 0;
+    margin-bottom: 0px;
+}
+
+
+/* ======================================= */
+/* 3. TABLE STYLES (เน้นความเรียบง่าย) */
+/* ======================================= */
+.product-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+}
+
+.product-table th, .product-table td {
+    padding: 15px 12px;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef;
+}
+
+/* ส่วนหัวตาราง (Thead) - ไม่มีพื้นหลังเข้มมาก เน้นเส้นแบ่ง */
+.product-table thead th {
+    background-color: #ffffff; /* พื้นหลังขาว */
+    color: #495057;
+    font-weight: 600;
+    text-transform: none; /* ไม่บังคับตัวพิมพ์ใหญ่ */
+    font-size: 0.95rem;
+}
+
+/* ส่วนเนื้อหาตาราง (Tbody) */
+.product-table tbody tr:hover {
+    background-color: #f1f1f1; 
+}
+
+/* แถวสินค้าเหลือน้อย (Low Stock) */
+.product-table tbody tr.low-stock {
+    background-color: #ff00006d; 
+    color: #000000; 
+    font-weight: 500;
+}
+.product-table tbody tr.low-stock:hover {
+    background-color: #f1f1f1; 
+}
+
+/* จัดปุ่มในคอลัมน์ "รายการเพิ่มเติม" */
+.more_items_button {
+    display: flex;
+    gap: 2px;
+    flex-wrap: nowrap; /* ให้ปุ่มขึ้นบรรทัดใหม่ได้ถ้าพื้นที่ไม่พอ */
+    margin-left:75px;
+}
+
+
+/* ======================================= */
+/* 4. BUTTONS STYLES */
+/* ======================================= */
+
+/* สไตล์ปุ่มทั่วไปสำหรับ Edit/Delete/History */
+.btn {
+    padding:9px; /* ปุ่มเล็กและกะทัดรัด */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    background-color: #f8f9fa00;
+    color: #333;
+}
+
+/* ปุ่ม เพิ่มลดจำนวน (btn_plus_minus) และ ประวัติ (btn_history) */
+.btn_plus_minus{
+    border: none;
+    background-color: #00ff2a00;
+    border-color: #ced4da;
+}
+
+.btn_history {
+    border: none;
+    background-color: #c0c1c200;
+    border-color: #ced4da;
+}
+
+.btn_delete {
+    border: none; 
+    background-color: rgba(255, 0, 0, 0);
+}
+
+.btn_delete:hover, .btn_plus_minus:hover, .btn_history:hover {
+    border: none;
+    background-color: #bcbcbc;
+}
+/* ปุ่มแก้ไขข้อมูลสินค้า (btn-edit) */
+.btn-edit {
+    border: none;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #333;
+}
+.btn-edit:hover {
+    border: none;
+    background-color: #e0a80000;
+}
+/* ======================================= */
+/* BOTTOM NAVIGATION BAR STYLES */
+/* ======================================= */
+
+/****************สำหรับ Loading และ Error*************************/
+.loading{
+    font-size: large;
+    text-align: center;
+    margin-top: 50px;
+}
+.error{
+    font-size: large;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/****************สำหรับ Loading และ Error*************************/
+
+
+/****************สำหรับ Form ต่างๆ*******************************/
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1010;
+}
+
+.modal-content {
+    overflow-y: auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: none;
+    border-radius: 8px;
+}
+.modal-content h3{
+  color: #000;
+}
+
+.modal-input-group {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex ;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  gap: 2px;
+}
+
+.modal-input-group input {
+  width: 50%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1rem;
+}
+.modal-input-group span {
+    justify-self: left;
+    align-self: flex-start;
+}
+
+.modal-input-group select {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-save:hover {
+    background-color: #54da48;
+}
+.btn-cancel:hover {
+    background-color: rgba(240, 70, 70, 0.777);
+}
+.modal-form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.modal-form-group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  border-radius: 30%;
+}
+
+.modal-form-group input {
+  width: 95%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+
+.modal-form-group select{
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius:15px;
+}
+.Modal-note , .quan-input , .custom-select-wrapper{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    height: 30px;
+    border: none;
+    width: 50%;
+}
+.Modal-note input , .quan-input input , .custom-select-wrapper select {
+    border-radius: 15px;
+    width: 100%;
+}
+
+.custom-select-wrapper select {
+    /* สำหรับ Chrome, Safari, Firefox */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* สำหรับ IE/Edge */
+    /* ถ้าต้องการรองรับ ให้เพิ่มการซ่อนแบบเฉพาะเจาะจง */
+    
+    /* ตรวจสอบให้แน่ใจว่า select ยังคงกินพื้นที่เพื่อรับ input */
+    padding-right: 25px; /* เพิ่ม padding ขวาให้มีที่สำหรับ Icon */
+}
+/****************สำหรับ Form ต่างๆ*******************************/
+
+/* ======================================= */
+/* IMAGE UPLOAD / DISPLAY STYLES */
+/* ======================================= */
+
+.image-upload-label {
+    /* อาจจะต้องปรับ margin ด้านล่างเพื่อให้ชิดกับกล่องรูปภาพ */
+    margin-bottom: 5px; 
+    display: block;
+}
+
+.image-upload-area {
+    display: flex;
+    gap: 15px; /* ระยะห่างระหว่างกล่องแสดงรูปภาพและปุ่ม + */
+    align-items: center;
+}
+
+/* 1. สไตล์สำหรับกล่องแสดงรูปภาพหลัก (Placeholder / รูปปัจจุบัน) */
+.current-image-container {
+    width: 90px;
+    height: 90px;
+    background-color: #f8f9fa; /* สีเทาอ่อน */
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* ซ่อนส่วนที่เกินกรอบ */
+}
+
+.image-placeholder-icon {
+    font-size: 3rem;
+    color: #adb5bd; /* สีเทากลาง */
+}
+
+.current-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* จัดให้รูปภาพเต็มพื้นที่โดยไม่เสียสัดส่วน */
+}
+
+
+/* 2. สไตล์สำหรับปุ่มอัปโหลดใหม่ (+) */
+.upload-button {
+    width: 50px;
+    height: 50px;
+    background-color: #f1f3f5; /* สีเทาอ่อนมาก */
+    border: 1px dashed #ced4da; /* เส้นประ */
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.upload-button:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.upload-plus-icon {
+    font-size: 1.5rem;
+    color: #495057; 
+}
+
+.product-image-cell img{
+    
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    object-fit:fill;
+}
+
+.current-image-container {
+    position: relative; 
+    width: 90px;
+    height: 90px;
+    background-color: #f8f8fa; 
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+
+.remove-image-button {
+    position: absolute;
+    top: 45px; 
+    
+    /* 💡 MODIFIED: ซ่อนปุ่มเมื่อไม่ได้ Hover */
+    opacity: 0;
+    transform: translateY(-50%) scale(0.5); /* เริ่มต้นเล็กและเลื่อนขึ้นเล็กน้อย */
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out; /* เพิ่ม Transition */
+    
+    /* สไตล์ปุ่มเดิม */
+    
+    background-color: #e7162b75; 
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 300px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1010;
+}
+
+.current-image-container:hover .remove-image-button {
+    /* 💡 NEW: เมื่อ Hover บน Container ให้แสดงปุ่ม */
+    opacity: 1;
+    transform: translateY(-50%) scale(1); /* ขยายกลับสู่ขนาดเต็ม */
+}
+
+/* ทำให้รูปภาพที่ถูกเลือกแสดงเต็มพื้นที่ */
+.current-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
