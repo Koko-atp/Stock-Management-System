@@ -9,6 +9,8 @@ import { faMountain, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 const DEFAULT_IMAGE_URL = 'https://kdyryibnpimemkrpurja.supabase.co/storage/v1/object/public/product-images/679821.png'; 
 const BUCKET_NAME = 'product-images'; 
 
+
+
 // =======================================
 // ฟังก์ชันจัดการอัปโหลด Supabase Storage (คัดลอกจาก addproduct.jsx)
 // =======================================
@@ -38,7 +40,12 @@ const uploadProductImage = async (file) => {
 // =======================================
 
 
-const EditProductModal = ({ isVisible, product, onClose, onSave, categories }) => {
+const EditProductModal = ({ isVisible, product, onClose , onSave ,  categories }) => {
+  const [catvalue , setcatvalue] = useState()
+  const [newcat , setnewcat] = useState('')
+
+
+
   const [formData, setFormData] = useState({
     productname: '',
     price: 0,
@@ -67,11 +74,13 @@ const EditProductModal = ({ isVisible, product, onClose, onSave, categories }) =
       setImageFile(null); // เคลียร์ไฟล์ใหม่ที่เคยเลือกไว้
       setCurrentImageUrl(product.image_url || DEFAULT_IMAGE_URL); // ใช้ URL เดิมของสินค้า
       setIsImageRemoved(false);
+      setcatvalue(product.categoryid)
     }
   }, [product]);
   
 
   if (!isVisible) return null;
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -99,8 +108,8 @@ const EditProductModal = ({ isVisible, product, onClose, onSave, categories }) =
   };
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit =  async() => {
+
     
     let finalImageUrl = product.image_url; // ใช้ URL เดิมของสินค้าเป็นค่าเริ่มต้น
 
@@ -118,15 +127,32 @@ const EditProductModal = ({ isVisible, product, onClose, onSave, categories }) =
         finalImageUrl = DEFAULT_IMAGE_URL;
     } 
     // Case 3: ไม่มีการเปลี่ยนแปลงรูปภาพ
-
+    
     const dataToSave = {
         ...formData,
-        image_url: finalImageUrl, // รวม URL รูปภาพใหม่/เดิม/Default
+    image_url: finalImageUrl, // รวม URL รูปภาพใหม่/เดิม/Default
     };
     
-    onSave(product.productid, dataToSave);
-    onClose();
-  };
+    if (catvalue == "") {
+      if(newcat.trim() === ''){alert("กรุณาใส่ชื่อหมวดหมู")
+        return;}
+    const {error} = await  DB.from('category')
+      .insert([{ categoryname :  newcat }])
+      if(error) {
+        alert('แก้ไขไม่สำเร็จ : ' , error.message) 
+        return;}
+    }
+
+      const  dataToSaveWithcat = {
+          ...dataToSave,
+          categoryid : catvalue
+      }
+
+      setcatvalue('')
+      onSave(product.productid , dataToSaveWithcat , newcat )
+      setnewcat('')
+    onClose()
+  }
   
   // Logic สำหรับการแสดงผลพรีวิวรูปภาพ
   const previewImage = imageFile 
@@ -140,7 +166,7 @@ const EditProductModal = ({ isVisible, product, onClose, onSave, categories }) =
     <div className="modal-overlay">
       <div className="modal-content">
         <h3>แก้ไขข้อมูลสินค้า: {product?.productname}</h3>
-        <form onSubmit={handleSubmit}>
+     
         
           {/* 💡 NEW: ส่วนสำหรับแก้ไขรูปภาพ */}
           <div className="modal-form-group">
@@ -217,16 +243,24 @@ const EditProductModal = ({ isVisible, product, onClose, onSave, categories }) =
             <label>หมวดหมู่สินค้า:</label>
             <select
               name="categoryid"
-              value={formData.categoryid}
-              onChange={handleChange}
+              value={catvalue}
+              onChange={(e) => setcatvalue(e.target.value)}
             >
-              <option value="">เลือกหมวดหมู่</option>
+              <option value="">หมวดหมู่ใหม่</option>
               {categories.map((cat) => (
                 <option key={cat.categoryid} value={cat.categoryid}>
                   {cat.categoryname}
                 </option>
               ))}
             </select>
+            
+            {catvalue == '' &&
+            <>
+            <hr></hr>
+            < input placeholder='เพิ่มหมวดหมู่ใหม่' onChange={(e) => setnewcat(e.target.value)} />
+            </> 
+            }
+
           </div>
           <div className="modal-form-group">
             <label>เกณฑ์ขั้นต่ำ:</label>
@@ -239,10 +273,9 @@ const EditProductModal = ({ isVisible, product, onClose, onSave, categories }) =
             />
           </div>
           <div className="modal-actions">
-            <button type="submit" className="btn btn-save">บันทึกการแก้ไข</button>
+            <button type="submit" className="btn btn-save" onClick={handleSubmit}>บันทึกการแก้ไข</button>
             <button type="button" className="btn btn-cancel" onClick={onClose}>ยกเลิก</button>
           </div>
-        </form>
       </div>
     </div>
   );

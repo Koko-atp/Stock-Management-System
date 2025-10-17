@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import MPL from "./Page/MainProductListPage";
 import Pfooter from "./cpn/Pagefooter";
 import TranPage from "./Page/TranLogPage";
@@ -10,8 +10,18 @@ function App() {
     const [TransacLog , setTransacLog] = useState(false);
     const [Notic , setNotic] = useState(false);
 
+    const [Pdirect , setPdirect] = useState('')
+    const [footerload , setfooterload] = useState(true)
+    
+    useEffect(() => {
+    setfooterload(false)
+  },[footerload])
 
-    const openMain= () => {
+    const directfromNotic = (Productsku) => {
+      setPdirect(Productsku)
+      openMPLP()
+    }
+    const openMPLP= () => {
         setMPLP(true);
         setTransacLog(false);
         setNotic(false)
@@ -32,14 +42,24 @@ function App() {
  return(
   <> 
    <Hprofile/>
-    <MPL open={MPLP}/>
+    <MPL open={MPLP}
+    todirct={Pdirect}
+    cleardirect={setPdirect}/>
+
     <TranPage visible={TransacLog}/>
-    <Noticpage visible={Notic} />
+
+    <Noticpage visible={Notic} 
+    fromdirct={directfromNotic}/>
 
     <Pfooter 
-    MainP={openMain} 
+    MainP={openMPLP} 
     TransacP={openTransac}
     NoticP={openNotification}
+
+    onMainP={MPLP}
+    onTransacP={TransacLog}
+    onNotic={Notic}
+    load={footerload}
     />
   </>
  );

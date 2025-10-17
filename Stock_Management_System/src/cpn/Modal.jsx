@@ -18,6 +18,7 @@ const Modal = ({ isVisible, product, onClose, onSave }) => {
     if(quantity == null){alert('กรุณาระบุจำนวน')
       return;
     }
+    
     const finalQuantity = transactionType === 'add' ? quantity : -quantity;
     const zoned = new Date()
     zoned.setHours((zoned.getHours() + 7))

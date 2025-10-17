@@ -42,6 +42,10 @@ const uploadProductImage = async (file) => {
 
 
 const AddProductModal = ({ isVisible, onClose, onSave, categories }) => {
+
+    const [catvalue , setcatvalue] = useState('')
+    const [newcat , setnewcat] = useState('')
+
   const [formData, setFormData] = useState({
     sku: '',
     productname: '',
@@ -96,7 +100,24 @@ const AddProductModal = ({ isVisible, onClose, onSave, categories }) => {
         image_url: imageUrl,
     };
 
-    onSave(dataToSave); // onSave จะเรียก API เพื่อบันทึกข้อมูลเข้า Supabase Table
+    if (catvalue == "") {
+      if(newcat.trim() === ''){alert("กรุณาใส่ชื่อหมวดหมู")
+        return;}
+    const {error} = await  DB.from('category')
+      .insert([{ categoryname :  newcat }])
+      if(error) {
+        alert('เพิ่มหมวดหมู่ไม่สำเร็จ : ' , error.message) 
+        return;}
+    }
+
+      const  dataToSaveWithcat = {
+          ...dataToSave,
+          categoryid : catvalue
+      }
+
+    setnewcat('')
+    setcatvalue('')
+    onSave(dataToSaveWithcat , newcat); // onSave จะเรียก API เพื่อบันทึกข้อมูลเข้า Supabase Table
     
     // Reset States
     setFormData({
@@ -163,18 +184,26 @@ const AddProductModal = ({ isVisible, onClose, onSave, categories }) => {
             <label>ชื่อสินค้า:</label>
             <input type="text" name="productname" value={formData.productname} onChange={handleChange} required />
           </div>
+
           <div className="modal-form-group">
             <label>หมวดหมู่สินค้า:</label>
             <div className="custom-select-wrapper">
-              <select name="categoryid" value={formData.categoryid} onChange={handleChange} required>
-                <option value="">เลือกหมวดหมู่</option>
+              <select name="categoryid" value={catvalue} onChange={(e) => setcatvalue(e.target.value)} >
+                <option value="">เพิ่มหมวดหมู่ใหม่</option>
                 {categories.map((cat) => (
                   <option key={cat.categoryid} value={cat.categoryid}>
                     {cat.categoryname}
                   </option>
                 ))}
               </select>
-            </div>
+              </div>
+            {catvalue == '' &&
+            <>
+            <hr></hr>
+            < input placeholder='เพิ่มหมวดหมู่ใหม่' onChange={(e) => setnewcat(e.target.value)} />
+            </> 
+            }
+
           </div>
           <div className="modal-form-group">
             <label>ราคา:</label>

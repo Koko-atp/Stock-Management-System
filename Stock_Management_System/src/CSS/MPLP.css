@@ -30,7 +30,10 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
   background-color: #313131;
 }
-
+option{
+    overflow-y: auto;
+    max-height: 100px;
+}
 
 
 .pos-container {
@@ -253,19 +256,19 @@ h1 {
 /* ปุ่ม เพิ่มลดจำนวน (btn_plus_minus) และ ประวัติ (btn_history) */
 .btn_plus_minus{
     border: none;
-    background-color: #00ff2a00;
+    background-color: #4eff6bb0;
     border-color: #ced4da;
 }
 
 .btn_history {
     border: none;
-    background-color: #c0c1c200;
+    background-color: #1c8eff92;
     border-color: #ced4da;
 }
 
 .btn_delete {
     border: none; 
-    background-color: rgba(255, 0, 0, 0);
+    background-color: rgba(241, 21, 21, 0.611);
 }
 
 .btn_delete:hover, .btn_plus_minus:hover, .btn_history:hover {
