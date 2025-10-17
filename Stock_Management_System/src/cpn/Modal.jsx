@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 const Modal = ({ isVisible, product, onClose, onSave }) => {
   // สร้าง State สำหรับประเภทการทำรายการ ('add' หรือ 'subtract') และจำนวนสินค้า
   const [transactionType, setTransactionType] = useState('add');
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState();
   const [transac_note , setnote] = useState()
   const [tran_id , settran_id] = useState()
 
@@ -14,7 +14,11 @@ const Modal = ({ isVisible, product, onClose, onSave }) => {
       alert("กรุณากรอกจำนวนสินค้าที่ถูกต้อง");
       return;
     }
-    
+
+    if(quantity == null){alert('กรุณาระบุจำนวน')
+      return;
+    }
+
     const finalQuantity = transactionType === 'add' ? quantity : -quantity;
     const zoned = new Date()
     zoned.setHours((zoned.getHours() + 7))

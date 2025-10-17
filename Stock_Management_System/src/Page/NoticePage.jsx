@@ -5,15 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 
 
-function Noticpage({visible}) {
+function Noticpage({visible , fromdirct}) {
     const[loading , setload] = useState(true);
     const[NoticLog , setNoticLog] = useState([]);
 
     const  fetchNotic = async () => {
        try{
            const{data ,error} = await DB.from('stocknotification')
-           .select('productid , notificationdate , notificationmessage , product(productname) ')
-           .order('notificationdate')
+           .select('productid , notificationdate , notificationmessage , product(productname , sku) ')
+           .order('notificationdate' , {ascending : false})
            setNoticLog(data);
            if (error) throw error;
         } 
@@ -54,7 +54,7 @@ function Noticpage({visible}) {
                         {NoticLog.map((NLog) => (    
                     <tr key={NoticLog.productid}>
                         <td>
-                        <div className="Notic_box" >
+                        <div className="Notic_box" onClick={() => fromdirct(NLog.product.sku)}>
                             <span>{NLog.notificationdate.replace('T' ,' : ')}</span>
                             <div>{NLog.product.productname} : {NLog.notificationmessage}</div>
                         </div>

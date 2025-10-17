@@ -21,9 +21,10 @@
 }
 
 .Notic_box {
+    cursor: pointer;
     display: block;
-    background-color: #f8f9fa;
-    border: 1px solid #e0e0e0;
+    background-color: #fe2a2a7d;
+    border: none;
     border-radius: 12px;
     padding: 15px 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -34,13 +35,13 @@
 
 .Notic_box:hover {
     transform: translateY(-3px);
-    box-shadow: 10px 10px 5px lightblue;
+    box-shadow: 10px 10px 5px rgb(224, 224, 224);
 
 }
 
 .Notic_box span {
     font-size: 0.9rem;
-    color: #6c757d;
+    color: #212b34;
     margin-bottom: 8px;
     display: block;
 }

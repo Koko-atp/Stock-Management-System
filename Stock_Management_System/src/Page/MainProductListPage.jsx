@@ -17,7 +17,7 @@ import {
 
 } from '@fortawesome/free-solid-svg-icons';
 
-function MPL({open}){
+function MPL({open , todirct}){
   
   const [products, setProducts] = useState([]); // State สำหรับเก็บข้อมูลสินค้า
   const [categories, setCategories] = useState([]); // State สำหรับเก็บข้อมูลหมวดหมู่
@@ -69,6 +69,9 @@ function MPL({open}){
   
   useEffect(() => {
     if(open){
+      if(todirct !== ''){
+        setSearchTerm(todirct)
+      }
       fetchProducts();
     }
   }, [open , loading]);
@@ -143,7 +146,26 @@ function MPL({open}){
     setProductToEdit(null);
   };
   
-  const handleEditSave = async (productId, newFormData) => {
+  const handleEditSave = async (productId, newFormData , newcat) => { 
+    
+    if ( newFormData.categoryid == '' ){
+          const {data , error} =  await DB.from('category')
+          .select('categoryid')
+          .eq('categoryname' , newcat)
+          .limit(1)
+
+         const newid =  data?.[0]
+         console.log(newid)
+          newFormData = {
+            ...newFormData,
+            categoryid: newid.categoryid 
+          }
+          if(error) {
+            alert('ไม่สำเร็จ : ' + {error}) 
+            return;
+          }
+        }
+
     try {
       const { error } = await DB
       .from('product')
