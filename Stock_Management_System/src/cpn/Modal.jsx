@@ -18,13 +18,13 @@ const Modal = ({ isVisible, product, onClose, onSave }) => {
     if(quantity == null){alert('กรุณาระบุจำนวน')
       return;
     }
-
+    
     const finalQuantity = transactionType === 'add' ? quantity : -quantity;
     const zoned = new Date()
     zoned.setHours((zoned.getHours() + 7))
     const trandate = zoned.toISOString().split('.')[0];
     
-    if (product.initialquantity + finalQuantity < 0 ){
+    if (product.initialquantity + finalQuantity < 0){
       alert("จำนวนไม่ถูกต้อง");
     }else{
       onSave({

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import DB from "../assets/DB";
-import '../CSS/NoticPage.css'
+import '../CSS/Noticpage.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 
