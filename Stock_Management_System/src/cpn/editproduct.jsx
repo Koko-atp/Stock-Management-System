@@ -134,7 +134,7 @@ const EditProductModal = ({ isVisible, product, onClose , onSave ,  categories }
     };
     
     if (catvalue == "") {
-      if(newcat.trim() === ''){alert("No")
+      if(newcat.trim() === ''){alert("กรุณาใส่ชื่อหมวดหมู")
         return;}
     const {error} = await  DB.from('category')
       .insert([{ categoryname :  newcat }])
@@ -143,26 +143,14 @@ const EditProductModal = ({ isVisible, product, onClose , onSave ,  categories }
         return;}
     }
 
-        if ( newcat !== '' && catvalue == ''){
-          const {data , error} =  await DB.from('category')
-          .select('categoryid')
-          .eq('categoryname' , newcat)
-          .limit(1)
-
-         setcatvalue(data?.[0].categoryidid)
-         console.log(catvalue)
-
-          if(error) {
-            alert('ไม่สำเร็จ : ' + {error}) 
-            return;
-          }
-        }
-      
       const  dataToSaveWithcat = {
           ...dataToSave,
           categoryid : catvalue
       }
-    onSave(product.productid , dataToSaveWithcat , newcat)
+
+      setcatvalue('')
+      onSave(product.productid , dataToSaveWithcat , newcat )
+      setnewcat('')
     onClose()
   }
   
@@ -265,10 +253,12 @@ const EditProductModal = ({ isVisible, product, onClose , onSave ,  categories }
                 </option>
               ))}
             </select>
-            <hr></hr>
             
-            {catvalue == '' && 
+            {catvalue == '' &&
+            <>
+            <hr></hr>
             < input placeholder='เพิ่มหมวดหมู่ใหม่' onChange={(e) => setnewcat(e.target.value)} />
+            </> 
             }
 
           </div>

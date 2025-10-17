@@ -69,7 +69,7 @@ const Modal = ({ isVisible, product, onClose, onSave }) => {
           </div>
 
           <div className='quan-input'>
-            <span>หมายเหตุ</span>
+            <span>จำนวน</span>
           <input
           className='quan-input'
           type="number"

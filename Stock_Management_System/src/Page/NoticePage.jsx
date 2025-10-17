@@ -54,7 +54,7 @@ function Noticpage({visible , fromdirct}) {
                         {NoticLog.map((NLog) => (    
                     <tr key={NoticLog.productid}>
                         <td>
-                        <div className="Notic_box" onClick={() => fromdirct(NLog.product.sku)}>
+                        <div className="Notic_box" onClick={() => (fromdirct(NLog.product.sku))}>
                             <span>{NLog.notificationdate.replace('T' ,' : ')}</span>
                             <div>{NLog.product.productname} : {NLog.notificationmessage}</div>
                         </div>

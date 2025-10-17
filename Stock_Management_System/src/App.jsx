@@ -43,7 +43,8 @@ function App() {
   <> 
    <Hprofile/>
     <MPL open={MPLP}
-    todirct={Pdirect}/>
+    todirct={Pdirect}
+    cleardirect={setPdirect}/>
 
     <TranPage visible={TransacLog}/>
 
