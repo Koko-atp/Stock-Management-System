@@ -1,8 +1,12 @@
 function Hprofile() {
+    const profileImageUrl = 'https://kdyryibnpimemkrpurja.supabase.co/storage/v1/object/public/Proflie/Proflie.png';
+
     return(
-    <div className='Logo'>
-        <img src='src\assets\pic\f111a4d9e98c2f1849285d198126666303e67f65.png'></img><h1>PPJ SPROT</h1>
-    </div>
+        <div className='Logo'>
+            {/* แก้ไข src ให้ใช้ URL ใหม่ */}
+            <img src={profileImageUrl} alt="Profile Logo" />
+            <h1>PPJ SPROT</h1>
+        </div>
     );
 }
 export default Hprofile;

@@ -7,13 +7,13 @@ import ProductLog from "../cpn/TransaclogPopUp";
 import '../CSS/MPLP.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-    faFileArrowDown , 
-    faArrowsUpDown, 
+    faPlusMinus, 
     faPenToSquare, 
     faTrashCan, 
     faCartPlus,  
-    faBoxArchive, // ไอคอนสำหรับคลังสินค้า (แทนกล่อง)
-    faList
+    faBoxArchive,
+    faFileInvoice, // ไอคอนสำหรับคลังสินค้า (แทนกล่อง)
+    faList,
 
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -34,6 +34,7 @@ function MPL({open , todirct , cleardirect}){
   const [isAddModalOpen, setIsAddModalOpen] = useState(false); 
   const[Showhistory , setShowhistory] = useState(false);
   const[ProducHis , setProductHis] = useState([]);
+
 
   
   const fetchProducts = async () => {
@@ -357,10 +358,10 @@ function MPL({open , todirct , cleardirect}){
                 <td>
                   <div className='more_items_button'>
                       <button className="btn btn_plus_minus" onClick={() => handleUpdateQuantity(product)} title='ทำรายการ เพิ่ม/ถอน'>
-                        <FontAwesomeIcon icon={faArrowsUpDown} />
+                        <FontAwesomeIcon icon={faPlusMinus} />
                       </button>
                     <button className="btn btn_history" onClick={() => openHistory(product.productid)} title='ประวัติการทำรายการของสินค้าชิ้นนี้'>
-                      <FontAwesomeIcon icon={faFileArrowDown} />
+                      <FontAwesomeIcon icon={faFileInvoice} />
                     </button>
                     <button className="btn btn-edit" onClick={() => openEditModal(product)} title='แก้ไขรายละเอียด' >
                       <FontAwesomeIcon icon={faPenToSquare} />
