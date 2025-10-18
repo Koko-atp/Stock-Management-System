@@ -15,12 +15,18 @@ function TranPage ({visible}) {
     const [sortchoice , setschoice] = useState();
     const [sortby , setsort] = useState('transactiondate');
     const[ascend , setasc] = useState(false);
+    const[trantype , settype] = useState('');
+    
 
  /// LoadLog ///
     const fetchLog = async () => {
-       try{
-           const{data ,error} = await DB.from('stocktransaction')
+        try{ 
+        let frechdata = DB.from('stocktransaction')
            .select('quantity , note , transactiondate ,  transactionid , transactiontype( transactiontypeid , typename ) , product( productname) ')
+           
+           if(trantype !== 'all' && trantype !== ''){frechdata.eq('transactiontypeid' , trantype)}
+           
+           const{data ,error} = await frechdata
            .order(sortby , {ascending: ascend})
            setLogData(data);
            if (error) throw error;
@@ -62,6 +68,7 @@ function TranPage ({visible}) {
         setschoice(e);
         setload(true)
     }
+    
     if(visible) 
         if (loading) return <div className="loading">กำลังโหลดข้อมูล...</div>;
     else
@@ -92,6 +99,13 @@ function TranPage ({visible}) {
                     <option value='transactiondate' > วันที่ล่าสุด </option>
                     <option value='quantity' > จำนวนชิ้นมากสุด </option>
                     <option value='minquantity'> จำนวนชิ้นน้อยสุด </option>
+                </select>
+                <select className="sort-option" value={trantype}
+                onChange={(e) => (settype(e.target.value) , setload(true))}>
+                    {trantype === '' &&<option value={''}>ประเภทรายการ</option> }
+                    <option value='all' > ทั้งหมด </option>
+                    <option value={1} > รับเข้า </option>
+                    <option value={2}> เบิกออก </option>
                 </select>
                     </div>
                 </div>

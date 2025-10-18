@@ -72,10 +72,12 @@ if(visible){
         <div className="Notic-page-header-logo">
         <div className="Notic-title">
 
+         <div className="page-header-logo">
         <FontAwesomeIcon icon={faBoxesStacked}  className="header-icon" />
           <div className="header-text-container">
             <span className="header-main-text">ภาพรวม</span>
             <span className="header-sub-text">สรุปสินค้า</span>
+        </div>
         </div>
 
             </div>
