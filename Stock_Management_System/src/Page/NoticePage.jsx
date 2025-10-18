@@ -33,11 +33,11 @@ function Noticpage({visible , fromdirct}) {
         else
             return (
         <div>
-    <div className="pos-container">
+        <div className="pos-container">
         
-    <div className="main-content">
+        <div className="main-content">
         <div className="Notic-page-header-logo">
-            <div className="Notic-title">
+        <div className="Notic-title">
 
         <FontAwesomeIcon icon={faBell}  className="header-icon" />
           <div className="Notic-header-text-container">
@@ -46,9 +46,8 @@ function Noticpage({visible , fromdirct}) {
 
             </div>
       </div>
-
       <div className="border"></div>
-      <div className="product-list-container"></div>
+
             <table className="Notic_table">
                 <tbody>
                         {NoticLog.map((NLog) => (    
@@ -64,6 +63,7 @@ function Noticpage({visible , fromdirct}) {
                 </tbody>
             </table>
     </div>
+
     </div>
 </div>
     );}}

@@ -5,7 +5,7 @@ function Hprofile() {
         <div className='Logo'>
             {/* แก้ไข src ให้ใช้ URL ใหม่ */}
             <img src={profileImageUrl} alt="Profile Logo" />
-            <h1>PPJ SPROT</h1>
+            <p>PPJ SPROT</p>
         </div>
     );
 }

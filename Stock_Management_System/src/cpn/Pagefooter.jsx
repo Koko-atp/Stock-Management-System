@@ -3,15 +3,14 @@ import {
     faBoxArchive, // ไอคอนสำหรับคลังสินค้า (แทนกล่อง)
     faFileInvoice, // ไอคอนสำหรับประวัติรวม
     faBell, // ไอคอนสำหรับแจ้งเตือน
-    faGear, // สำหรับปุ่มเพิ่มสินค้าใหม่ด้านบน
+    faBoxesStacked
 } from '@fortawesome/free-solid-svg-icons';
 import'../CSS/footer.css'
 
-function Pfooter({load , MainP , TransacP , NoticP , onNotic , onTransacP , onMainP}) {
+function Pfooter({ MainP , TransacP , NoticP , DashboardP , onNotic , onTransacP , onMainP , onDashboard}) {
 
   const profileImageUrl = 'https://kdyryibnpimemkrpurja.supabase.co/storage/v1/object/public/Proflie/Proflie.png';
   
-  if(load) return null
     return(
       <>
       <nav className="bottom-nav">
@@ -24,28 +23,27 @@ function Pfooter({load , MainP , TransacP , NoticP , onNotic , onTransacP , onMa
               </button>
             </div>
 
-            <div className={onTransacP === true? 'nav-item active' : 'nav-item'}
-           >
+            <div className={onTransacP === true? 'nav-item active' : 'nav-item'}>
               <button className='nav-box' onClick={() => TransacP() }>
                 <FontAwesomeIcon icon={faFileInvoice} className="nav-icon" />
                 <span className="nav-label">ประวัติรวม</span>
                 </button>
             </div>
 
-        <div className={onNotic === true? 'nav-item active' : 'nav-item'}
-                   >
+        <div className={onNotic === true? 'nav-item active' : 'nav-item'}>
           <button className='nav-box' onClick={() => NoticP() }>
             <FontAwesomeIcon icon={faBell} className="nav-icon" />
             <span className="nav-label">การแจ้งเตือน</span>
           </button>
         </div>
 
-        <div className="nav-item">
-          <button className='nav-box' >
-          <FontAwesomeIcon icon={faGear} className="nav-icon" />
-          <span className="nav-label">การตั้งค่า</span>
+        <div className={onDashboard === true? 'nav-item active' : 'nav-item'}>
+          <button className='nav-box' onClick={DashboardP}>
+          <FontAwesomeIcon icon={faBoxesStacked} className="nav-icon" />
+          <span className="nav-label">ภาพรวม</span>
           </button>
         </div>
+
         <div className="nav-item">
           <img src={profileImageUrl} alt="Profile" className="nav-profile-img" />
           <span className="nav-label">โปรไฟล์</span>
