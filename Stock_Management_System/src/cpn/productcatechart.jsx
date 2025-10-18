@@ -8,7 +8,6 @@ function Productgraph (visible) {
         if (error) {
             console.log(error)
         }else {
-            console.log(data)
             setdata(data)}
     }
 
