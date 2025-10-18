@@ -9,6 +9,7 @@ import { faBoxesStacked ,
     faArrowTrendUp
  } from '@fortawesome/free-solid-svg-icons';
  import  '../CSS/Dashboard.css';
+ import Productgraph from '../cpn/productcatechart';
 
 
 
@@ -122,18 +123,19 @@ if(visible){
       </div>
         
     <div className='dashboard-box' onClick={toTransac}>
-
-
-       <div className='dash-text-box'>
        <FontAwesomeIcon icon={faArrowTrendUp} className='dashboard-icon'/>
-       <hr/>
+       <div className='dash-text-box'>
+
         <span> สิ้นค้าออกทั้งหมด </span>
         <span>{transacsum} ชิ้น</span>
-       
        </div>
       </div>
-        
+
     </div>
+    <hr/>
+   
+       <Productgraph visible={true}/>
+
     </div>
     </div>
 </div>

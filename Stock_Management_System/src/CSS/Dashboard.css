@@ -1,12 +1,16 @@
 .dashboard{
-    display: flex;
-    gap: 50px;
-    column-count: 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: none;
 }
+
 
 .dashboard-box {
     gap: 10px;
-    max-width: 20%;
+    max-width: 100%;
     align-items: center;
     display: flex;
     cursor: pointer;
@@ -18,7 +22,7 @@
     transition: transform 0.2s;
     width: auto;
     height: fit-content;
-    
+    margin-bottom: 2vh;
 }
 
 .dashboard-box:hover {
@@ -38,4 +42,20 @@
 
 .dashboard-Notice{
     color: rgba(255, 0, 0, 0.797);
+}
+
+.dashboradgarph{
+    max-width: 110vh;
+    height: 40vh;
+    margin-top: 3vh;
+    border: 1px solid;
+    padding: 2%;
+    border: none;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.266);
+    border-radius: 12px;
+}
+
+.dashboradgarph span {
+    font-size: large;
+    margin-left:5% ;
 }

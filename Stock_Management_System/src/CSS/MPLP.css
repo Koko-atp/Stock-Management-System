@@ -69,20 +69,27 @@ h1 {
 }
 .Logo {
     position: fixed;
-    left: 100px;
+    left: 2vh;
     top: -30px;
 
 
     display: flex;
 
-    width: 300px;
-    height: 90px;
+    width: 30vh;
+    max-height: 10%;
+    height: fit-content;
     background-color: white;
     padding: 10px;
     padding-top: 30px;
     border-radius: 30px;
     border: 1px solid rgba(0, 0, 0, 0.5)
 }
+
+.Logo p {
+    font-size: 3.5vh;
+    font-weight: bold;
+}
+
 .Logo img{
     height: 50px;
     margin-left:15px;
