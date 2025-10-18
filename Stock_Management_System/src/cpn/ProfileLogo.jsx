@@ -4,8 +4,10 @@ function Hprofile() {
     return(
         <div className='Logo'>
             {/* แก้ไข src ให้ใช้ URL ใหม่ */}
+            <div className="Logo-content">
             <img src={profileImageUrl} alt="Profile Logo" />
             <p>PPJ SPROT</p>
+            </div>
         </div>
     );
 }
