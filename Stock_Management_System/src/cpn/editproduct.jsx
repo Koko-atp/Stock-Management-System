@@ -164,18 +164,6 @@ const EditProductModal = ({ isVisible, product, onClose , onSave ,  categories }
                 alert(`ℹ️ หมวดหมู่ "${newcat.trim()}" มีอยู่แล้วในระบบ`);
                 resetForm();
             }    
-            const { data: categoryData, error: selectError } = await DB.from('category')
-                .select('categoryid')
-                .ilike('categoryname', newcat.trim()) // .ilike คือการค้นหาแบบไม่สนตัวพิมพ์เล็ก/ใหญ่
-                .single();
-
-            if (selectError) throw selectError;
-
-            if (!categoryData) {
-                alert('เกิดข้อผิดพลาด: ไม่พบ ID ของหมวดหมู่');
-                return;
-            }
-            finalCategoryId = categoryData.categoryid;
 
         } catch (error) {
             alert('เกิดข้อผิดพลาดในการจัดการหมวดหมู่: ' + error.message);
@@ -190,7 +178,7 @@ const EditProductModal = ({ isVisible, product, onClose , onSave ,  categories }
         categoryid: finalCategoryId
     };
     
-    onSave(dataToSaveWithCat,newcat);
+    onSave(product.productid , dataToSaveWithCat , newcat);
   
       setnewcat('');
       setcatvalue('');

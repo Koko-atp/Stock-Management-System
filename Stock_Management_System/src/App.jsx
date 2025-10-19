@@ -13,6 +13,7 @@ function App() {
     const[DashBoard , setDashBoard] = useState(false);
 
     const [Pdirect , setPdirect] = useState('')
+    const [Pcatdirect , setPcatdirect] = useState('')
 
 
     const directfromNotic = (Productsku) => {
@@ -52,6 +53,8 @@ function App() {
   <> 
    <Hprofile/>
     <MPL open={MPLP}
+    tocatedirect={Pcatdirect}
+    clearCate={setPcatdirect}
     todirct={Pdirect}
     cleardirect={setPdirect}/>
 
@@ -64,6 +67,7 @@ function App() {
     toMPLP={openMPLP}
     toTransac={openTransac}
     toNotice={openNotification}
+    fromCatedirect={setPcatdirect}
     / >
 
 
