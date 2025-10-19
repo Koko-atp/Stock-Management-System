@@ -14,7 +14,7 @@ import { faBoxesStacked ,
 
 
 
-function Dashboard({visible , toMPLP , toTransac , toNotice , fromCatedirect}){
+function Dashboard({visible , toMPLP , toTransac , toNotice , fromCatedirect , fromTransacType}){
 
     const [productnum , setproduct] = useState('-')
     const [productsum , setsumpro] = useState('-')
@@ -89,7 +89,7 @@ if(visible){
 
       <div className='dashboard'>
 
-      <div className='dashboard-box' onClick={toMPLP}>
+      <div className='dashboard-box' onClick={() => toMPLP}>
         <FontAwesomeIcon icon={faBoxArchive} className='dashboard-icon'/>
         <div className='dash-text-box'>
         <span> สินค้าทั้งหมด </span>
@@ -98,7 +98,7 @@ if(visible){
       </div>
 
   
-      <div className='dashboard-box' onClick={toMPLP}>
+      <div className='dashboard-box' onClick={() => toMPLP}>
         <FontAwesomeIcon icon={faBoxOpen} className='dashboard-icon' />
         <div className='dash-text-box'>
         <span> จำนวนสินค้าทั้งหมด </span>
@@ -116,7 +116,7 @@ if(visible){
         </div>
       </div>
         
-      <div className='dashboard-box' onClick={toNotice}>
+      <div className='dashboard-box' onClick={() =>toNotice}>
 
        <FontAwesomeIcon icon={faTriangleExclamation} className='dashboard-icon dashboard-Notice'/>
        <div className='dash-text-box'>
@@ -126,7 +126,7 @@ if(visible){
        </div>
       </div>
         
-    <div className='dashboard-box' onClick={toTransac}>
+    <div className='dashboard-box' onClick={() => (toTransac() , fromTransacType(2))}>
        <FontAwesomeIcon icon={faArrowTrendUp} className='dashboard-icon'/>
        <div className='dash-text-box'>
 

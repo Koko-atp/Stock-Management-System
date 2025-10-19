@@ -7,7 +7,7 @@ import {faFileInvoice,
 } from '@fortawesome/free-solid-svg-icons';
 
 
-function TranPage ({visible}) {
+function TranPage ({visible , toTranTypedirect , clearTransacType}) {
     const[loading , setload] = useState(true)
     const[LogData , setLogData] = useState([]);
     const[search , setsearch] = useState(['']);
@@ -52,6 +52,11 @@ function TranPage ({visible}) {
     /// LoadLogic ///
     useEffect(() => {
         if(visible) {
+            if(toTranTypedirect !== ''){
+                settype(toTranTypedirect);
+                clearTransacType('');
+                setload(true)
+            }
             fetchLog()
         }
     },[visible, loading]);
