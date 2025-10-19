@@ -17,7 +17,7 @@ import {
 
 } from '@fortawesome/free-solid-svg-icons';
 
-function MPL({open , todirct , cleardirect}){
+function MPL({open , todirct , cleardirect , tocatedirect , clearCate}){
   
   const [products, setProducts] = useState([]); // State สำหรับเก็บข้อมูลสินค้า
   const [categories, setCategories] = useState([]); // State สำหรับเก็บข้อมูลหมวดหมู่
@@ -72,7 +72,14 @@ function MPL({open , todirct , cleardirect}){
     if(open){
       if(todirct !== ''){
         setSearchTerm(todirct);
-        cleardirect('')
+        setviewcat('all');
+        cleardirect('');
+        
+      }
+      if(tocatedirect !==''){
+        setviewcat(tocatedirect);
+        setSearchTerm('');
+        clearCate('');
       }
       fetchProducts();
     }

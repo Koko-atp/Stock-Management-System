@@ -75,65 +75,91 @@ const AddProductModal = ({ isVisible, onClose, onSave, categories }) => {
     }
   };
 
-  const handleSubmit = async (e) => { 
-    e.preventDefault();
-    
-    let imageUrl = '';
+  const resetForm = () => {
+  setnewcat('');
+  setcatvalue('');
+  setFormData({
+    sku: '',
+    productname: '',
+    price: '',
+    initialquantity: '',
+    minimumcriteria: '',
+    categoryid: '',
+  });
+  setImageFile(null);
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // ---- 1. จัดการรูปภาพ ----
+    let imageUrl = DEFAULT_IMAGE_URL;
     if (imageFile) {
         try {
-            // 1. อัปโหลดรูปภาพ
-            imageUrl = await uploadProductImage(imageFile); 
+            imageUrl = await uploadProductImage(imageFile);
         } catch (error) {
-            console.error("Image upload failed:", error.message);
-            alert(`ไม่สามารถอัปโหลดรูปภาพได้: ${error.message}`);
-            return; 
+            alert(`อัปโหลดรูปภาพไม่สำเร็จ: ${error.message}`);
+            return;
         }
-    } else {
-        // 2. ใช้รูปภาพ Default
-        imageUrl = DEFAULT_IMAGE_URL; 
     }
-    
-    // รวม URL รูปภาพเข้ากับข้อมูลฟอร์ม
-    const dataToSave = {
-        ...formData,
-        image_url: imageUrl,
+    const dataToSave = { ...formData, image_url: imageUrl };
+
+    // ---- 2. จัดการหมวดหมู่ ----
+    let finalCategoryId = catvalue;
+
+    // กรณีที่ผู้ใช้ "เพิ่มหมวดหมู่ใหม่"
+    if (catvalue === "" && newcat.trim() !== '') {
+        try {
+            const { data: wasAdded, error: rpcError } = await DB.rpc('add_new_category', {
+                new_category_name: newcat.trim()
+            });
+
+            if (rpcError) throw rpcError; 
+
+            // `wasAdded` จะเป็น true ถ้าเพิ่มใหม่, false ถ้ามีอยู่แล้ว
+            if (wasAdded) {
+                console.log(`✅ เพิ่มหมวดหมู่ใหม่ "${newcat.trim()}" สำเร็จ`);
+            } else {
+                alert(`ℹ️ หมวดหมู่ "${newcat.trim()}" มีอยู่แล้วในระบบ`);
+                resetForm();
+            }    
+            const { data: categoryData, error: selectError } = await DB.from('category')
+                .select('categoryid')
+                .ilike('categoryname', newcat.trim()) // .ilike คือการค้นหาแบบไม่สนตัวพิมพ์เล็ก/ใหญ่
+                .single();
+
+            if (selectError) throw selectError;
+
+            if (!categoryData) {
+                alert('เกิดข้อผิดพลาด: ไม่พบ ID ของหมวดหมู่');
+                return;
+            }
+            finalCategoryId = categoryData.categoryid;
+
+        } catch (error) {
+            alert('เกิดข้อผิดพลาดในการจัดการหมวดหมู่: ' + error.message);
+            return;
+        }
+    } else if (catvalue === "") {
+        alert("กรุณาเลือกหมวดหมู่ หรือเพิ่มหมวดหมู่ใหม่");
+        return;
+    }
+    const dataToSaveWithCat = {
+        ...dataToSave,
+        categoryid: finalCategoryId
     };
-
-    if (catvalue == "") {
-      if(newcat.trim() === ''){alert("กรุณาใส่ชื่อหมวดหมู")
-        return;}
-    const {error} = await  DB.from('category')
-      .insert([{ categoryname :  newcat }])
-      if(error) {
-        alert('เพิ่มหมวดหมู่ไม่สำเร็จ : ' , error.message) 
-        return;}
-    }
-
-      const  dataToSaveWithcat = {
-          ...dataToSave,
-          categoryid : catvalue
-      }
-
-    setnewcat('')
-    setcatvalue('')
-    onSave(dataToSaveWithcat , newcat); // onSave จะเรียก API เพื่อบันทึกข้อมูลเข้า Supabase Table
     
-    // Reset States
-    setFormData({
-      sku: '',
-      productname: '',
-      price: '',
-      initialquantity: '',
-      minimumcriteria: '',
-      categoryid: '',
-    });
-    setImageFile(null);
-    onClose();
+    onSave(dataToSaveWithCat,newcat);
+  
+      setnewcat('');
+      setcatvalue('');
+      setFormData({ sku: '', productname: '', price: '', initialquantity: '', minimumcriteria: '', categoryid: '' });
+      setImageFile(null);
+      onClose();
   };
-  const handleRemoveImage = () => {
-    setImageFile(null);
-  };
+    const handleRemoveImage = () => {
+        setImageFile(null);
+    };
 
 
   return (

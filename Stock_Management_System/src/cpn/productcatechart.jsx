@@ -8,7 +8,7 @@ function Productgraph (visible) {
         if (error) {
             console.log(error)
         }else {
-            setdata(data)}
+            setdata(data);}
     }
 
     useEffect(() => {

@@ -107,7 +107,20 @@ const EditProductModal = ({ isVisible, product, onClose , onSave ,  categories }
     setIsImageRemoved(true); // ตั้งสถานะว่าต้องการใช้ Default URL แทนรูปเก่า
   };
 
-
+  const resetForm = () => {
+  setnewcat('');
+  setcatvalue('');
+  setFormData({
+    sku: '',
+    productname: '',
+    price: '',
+    initialquantity: '',
+    minimumcriteria: '',
+    categoryid: '',
+  });
+  setImageFile(null);
+  };
+  
   const handleSubmit =  async() => {
 
     
@@ -133,26 +146,46 @@ const EditProductModal = ({ isVisible, product, onClose , onSave ,  categories }
     image_url: finalImageUrl, // รวม URL รูปภาพใหม่/เดิม/Default
     };
     
-    if (catvalue == "") {
-      if(newcat.trim() === ''){alert("กรุณาใส่ชื่อหมวดหมู")
-        return;}
-    const {error} = await  DB.from('category')
-      .insert([{ categoryname :  newcat }])
-      if(error) {
-        alert('แก้ไขไม่สำเร็จ : ' , error.message) 
-        return;}
+    let finalCategoryId = catvalue;
+
+    // กรณีที่ผู้ใช้ "เพิ่มหมวดหมู่ใหม่"
+    if (catvalue === "" && newcat.trim() !== '') {
+        try {
+            const { data: wasAdded, error: rpcError } = await DB.rpc('add_new_category', {
+                new_category_name: newcat.trim()
+            });
+
+            if (rpcError) throw rpcError; 
+
+            // `wasAdded` จะเป็น true ถ้าเพิ่มใหม่, false ถ้ามีอยู่แล้ว
+            if (wasAdded) {
+                console.log(`✅ เพิ่มหมวดหมู่ใหม่ "${newcat.trim()}" สำเร็จ`);
+            } else {
+                alert(`ℹ️ หมวดหมู่ "${newcat.trim()}" มีอยู่แล้วในระบบ`);
+                resetForm();
+            }    
+
+        } catch (error) {
+            alert('เกิดข้อผิดพลาดในการจัดการหมวดหมู่: ' + error.message);
+            return;
+        }
+    } else if (catvalue === "") {
+        alert("กรุณาเลือกหมวดหมู่ หรือเพิ่มหมวดหมู่ใหม่");
+        return;
     }
-
-      const  dataToSaveWithcat = {
-          ...dataToSave,
-          categoryid : catvalue
-      }
-
-      setcatvalue('')
-      onSave(product.productid , dataToSaveWithcat , newcat )
-      setnewcat('')
-    onClose()
-  }
+    const dataToSaveWithCat = {
+        ...dataToSave,
+        categoryid: finalCategoryId
+    };
+    
+    onSave(product.productid , dataToSaveWithCat , newcat);
+  
+      setnewcat('');
+      setcatvalue('');
+      setFormData({ sku: '', productname: '', price: '', initialquantity: '', minimumcriteria: '', categoryid: '' });
+      setImageFile(null);
+      onClose();
+  };
   
   // Logic สำหรับการแสดงผลพรีวิวรูปภาพ
   const previewImage = imageFile 

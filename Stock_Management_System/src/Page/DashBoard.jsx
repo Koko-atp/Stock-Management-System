@@ -10,16 +10,18 @@ import { faBoxesStacked ,
  } from '@fortawesome/free-solid-svg-icons';
  import  '../CSS/Dashboard.css';
  import Productgraph from '../cpn/productcatechart';
+ import Catemanager from '../cpn/catemanagePage';
 
 
 
-function Dashboard({visible , toMPLP , toTransac , toNotice}){
+function Dashboard({visible , toMPLP , toTransac , toNotice , fromCatedirect}){
 
     const [productnum , setproduct] = useState('-')
     const [productsum , setsumpro] = useState('-')
     const [catenum , setcatenum] = useState('-')
     const [noticenum , setnoticnum] = useState('-')
     const [transacsum , settransum] = useState('-')
+    const [catemanage , setcatemanage] = useState(false)
     
     const gettransacsum = async() =>{
         let { data, error } = await DB.rpc('get_sum_transac_out') ;
@@ -104,7 +106,7 @@ if(visible){
         </div>
       </div>
       
-      <div className='dashboard-box' onClick={toMPLP}>
+      <div className='dashboard-box' onClick={() => setcatemanage(true)}>
         <FontAwesomeIcon icon={faBars} className='dashboard-icon'/>
         <div className='dash-text-box'>
 
@@ -140,6 +142,7 @@ if(visible){
 
     </div>
     </div>
+    <Catemanager visible={catemanage} close={setcatemanage} fromCate={fromCatedirect} toMPLP={toMPLP}/>
 </div>
 )
 }
