@@ -7,14 +7,17 @@ import Noticpage from "./Page/NoticePage";
 import Dashboard from"./Page/DashBoard"
 
 function App() {
-    const [MPLP , setMPLP] = useState(true);
-    const [TransacLog , setTransacLog] = useState(false);
-    const [Notic , setNotic] = useState(false);
-    const[DashBoard , setDashBoard] = useState(false);
-
+  const [MPLP , setMPLP] = useState(true);
+  const [TransacLog , setTransacLog] = useState(false);
+  const [Notic , setNotic] = useState(false);
+  const[DashBoard , setDashBoard] = useState(false);
+  
+  //// MPLP DIRECT ////
     const [Pdirect , setPdirect] = useState('')
     const [Pcatdirect , setPcatdirect] = useState('')
-
+    
+    ///// TRANSACTION DIRECT
+    const [TranTypedirect , setTranTypedirect] = useState('')
 
     const directfromNotic = (Productsku) => {
       setPdirect(Productsku)
@@ -58,7 +61,9 @@ function App() {
     todirct={Pdirect}
     cleardirect={setPdirect}/>
 
-    <TranPage visible={TransacLog}/>
+    <TranPage visible={TransacLog}
+    toTranTypedirect={TranTypedirect}
+    clearTransacType={setTranTypedirect}/>
 
     <Noticpage visible={Notic} 
     fromdirct={directfromNotic}/>
@@ -68,6 +73,7 @@ function App() {
     toTransac={openTransac}
     toNotice={openNotification}
     fromCatedirect={setPcatdirect}
+    fromTransacType={setTranTypedirect}
     / >
 
 
